@@ -6,7 +6,7 @@
 #    By: heom <heom@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/10 12:51:40 by heom              #+#    #+#              #
-#    Updated: 2021/06/21 16:09:02 by heom             ###   ########.fr        #
+#    Updated: 2021/06/22 20:09:35 by heom             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,25 +15,34 @@ NAME = minishell
 CFLAGS = -Wall -Wextra -Werror -g
 RM = rm -f
 
+MAIN = main
+
 SRCS = \
 			add \
 			all \
-			utils/ft_bzero
+			safe_exit \
+			utils/ft_bzero \
+			utils/ft_strndup \
 
 
 OBJS = $(FIL:.c=.o)
+INCS = -I./inc
+LIBS = -L./lib -lhistory -lreadline -ltermcap
 
-FIL = $(addsuffix .c, $(addprefix srcs/, $(SRCS)))
+# $(addsuffix .c, $(addprefix src/, $(MAIN)))
+FIL = $(addsuffix .c, $(addprefix src/, $(SRCS))) \
 
 
 all : $(NAME)
 
 $(OBJS): %.o : %.c
-	gcc $(CFLAGS) -c -o $@ $<
+	gcc $(CFLAGS) $(INCS) -c -o $@ $<
 
+src/main.o : src/main.c
+	gcc $(CFLAGS) $(INCS) -c -o $@ $<
 
-$(NAME) : $(OBJS)
-	gcc $(CFLAGS) $^ -o $@
+$(NAME) : $(OBJS) src/main.o
+	gcc $(CFLAGS) $^ -o $@ $(LIBS)
 
 clean :
 	$(RM) $(OBJS)
@@ -42,7 +51,7 @@ fclean : clean
 	$(RM) $(NAME) test
 
 test : $(OBJS) test.c
-	gcc $(CFLAGS) $^ -o test
+	gcc $(CFLAGS)  $^ -o test $(LIBS)
 
 re: fclean all
 

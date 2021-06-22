@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 13:21:09 by heom              #+#    #+#             */
-/*   Updated: 2021/06/21 16:28:49 by heom             ###   ########.fr       */
+/*   Updated: 2021/06/22 19:15:37 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 */
 typedef struct	s_cmd
 {
+	char			*rawcmd;
 	char			cmd[256];
 	char			**argv;
 	int				input_mode;
@@ -33,12 +34,12 @@ typedef struct	s_cmd
 /*
 ** whole line
 */
-typedef struct s_cmds
-{
-	struct s_cmd	*cmd_info;
-	struct s_cmds	*next;
-	struct s_cmds	*prev;
-}				t_cmds;
+// typedef struct s_cmds
+// {
+// 	struct s_cmd	*cmd_info;
+// 	struct s_cmds	*next;
+// 	struct s_cmds	*prev;
+// }				t_cmds;
 
 
 /*
@@ -47,7 +48,7 @@ typedef struct s_cmds
 
 typedef struct	s_all
 {
-	struct s_cmds	*cmds;
+	struct s_cmd	*cmd;
 	char			**dup_envp;
 }				t_all;
 

@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 14:19:09 by heom              #+#    #+#             */
-/*   Updated: 2021/06/21 15:57:47 by heom             ###   ########.fr       */
+/*   Updated: 2021/06/22 20:14:56 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,45 +18,67 @@ void	init(char **envp)
 	all()->dup_envp = envp;
 }
 
+void	make_rawcmd(char *buf)
+{
+	int	i;
+	int cmd_start;
+	int	quote;
+
+	i = 0;
+	quote = Q_NONE;
+	cmd_start = 0;
+	while (buf[i])
+	{
+		if (buf[i] == '\"' && quote != Q_SINGLE)
+			if (quote == Q_DOUBLE)
+				quote = Q_NONE;
+			else
+				quote = Q_DOUBLE;
+		else if (buf[i] == '\'' && quote != Q_DOUBLE)
+			if (quote == Q_SINGLE)
+				quote = Q_NONE;
+			else
+				quote = Q_SINGLE;
+		else if (buf[i] == '|' && quote == Q_NONE)
+		{
+			add_cmd(ft_strndup(buf, cmd_start, i - 1)); // have to free
+			cmd_start = i + 1;
+		}
+		i++;
+	}
+	add_cmd(ft_strndup(buf, cmd_start, i - 1)); // have to free
+	// should check if quote is open
+	// should check if only one pipe char end
+}
+
 
 void	parse(char *buf)
 {
-	int i;
+	make_rawcmd(buf);
 
-	i =0;
-	add_cmds();
-	while (buf[i])
-	{
-		if (buf[i] == '\"')
-		{
-
-		}
-		else if (buf[i] == '\'')
-		{
-
-		}
-		else
-		{
-
-		}
-	}
 }
 
 int		main(int argc, char **argv, char **envp)
 {
-	char *buf = "cat abc.txt > a > b > c | cat b; cat c";
+	(void) argc;
+	(void) argv;
+	char *buf = "cat abc.txt > a > b > \'c  \"| \'cat b | cat c | helloworld |";
 
 	init(envp);
 	parse(buf);
-
-
-
+	t_cmd *cmd;
+	cmd = all()->cmd;
+	while (cmd)
+	{
+		printf("%s\n", cmd->rawcmd);
+		cmd = cmd->next;
+	}
 
 
 	//add_rds(all()->cmds[0], "a");
 	//add_rds(all()->cmds[0], "b");
 	//add_rds(all()->cmds[0], "c");
-
+	safe_exit(0, NULL);
 	return (0);
 }
 
