@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:57:11 by heom              #+#    #+#             */
-/*   Updated: 2021/06/22 20:13:05 by heom             ###   ########.fr       */
+/*   Updated: 2021/06/25 12:59:53 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ void	add_cmd(char *rawcmd)
 		safe_exit(1, "new_cmd malloc failed!");
 	ft_bzero(new_cmd, sizeof(t_cmd));
 	new_cmd->rawcmd = rawcmd;
-	if (all()->cmd == NULL)
+	if (all()->cmd_info == NULL)
 	{
-		all()->cmd = new_cmd;
+		all()->cmd_info = new_cmd;
 		return ;
 	}
-	last_cmd = all()->cmd;
+	last_cmd = all()->cmd_info;
 	while (last_cmd->next != NULL)
 		last_cmd = last_cmd->next;
 	last_cmd->next = new_cmd;

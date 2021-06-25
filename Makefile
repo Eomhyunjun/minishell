@@ -6,7 +6,7 @@
 #    By: heom <heom@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/10 12:51:40 by heom              #+#    #+#              #
-#    Updated: 2021/06/22 20:09:35 by heom             ###   ########.fr        #
+#    Updated: 2021/06/25 16:29:52 by heom             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,11 @@ SRCS = \
 			add \
 			all \
 			safe_exit \
+			egg_strndup \
+			get_none_pos \
+			init \
+			make_argv \
 			utils/ft_bzero \
-			utils/ft_strndup \
 
 
 OBJS = $(FIL:.c=.o)

@@ -6,16 +6,29 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 14:19:09 by heom              #+#    #+#             */
-/*   Updated: 2021/06/22 20:14:56 by heom             ###   ########.fr       */
+/*   Updated: 2021/06/25 17:14:23 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "egginshell.h"
 
-
-void	init(char **envp)
+int		is_quote(char c, int *quote)
 {
-	all()->dup_envp = envp;
+	if (c == '\"' && *quote != Q_SINGLE)
+		if (*quote == Q_DOUBLE)
+			*quote = Q_NONE;
+		else
+			*quote = Q_DOUBLE;
+	else if (c == '\'' && *quote != Q_DOUBLE)
+	{
+		if (*quote == Q_SINGLE)
+			*quote = Q_NONE;
+		else
+			*quote = Q_SINGLE;
+	}
+	if (*quote == Q_NONE)
+		return (0);
+	return (1);
 }
 
 void	make_rawcmd(char *buf)
@@ -29,96 +42,50 @@ void	make_rawcmd(char *buf)
 	cmd_start = 0;
 	while (buf[i])
 	{
-		if (buf[i] == '\"' && quote != Q_SINGLE)
-			if (quote == Q_DOUBLE)
-				quote = Q_NONE;
-			else
-				quote = Q_DOUBLE;
-		else if (buf[i] == '\'' && quote != Q_DOUBLE)
-			if (quote == Q_SINGLE)
-				quote = Q_NONE;
-			else
-				quote = Q_SINGLE;
-		else if (buf[i] == '|' && quote == Q_NONE)
+		if (!is_quote(buf[i], &quote) && buf[i] == '|')
 		{
-			add_cmd(ft_strndup(buf, cmd_start, i - 1)); // have to free
+			add_cmd(egg_strndup(buf, cmd_start, i - 1));
 			cmd_start = i + 1;
 		}
 		i++;
 	}
-	add_cmd(ft_strndup(buf, cmd_start, i - 1)); // have to free
+	add_cmd(egg_strndup(buf, cmd_start, i - 1));
 	// should check if quote is open
-	// should check if only one pipe char end
+	// should check if only one pipe end
 }
 
 
 void	parse(char *buf)
 {
 	make_rawcmd(buf);
-
+	make_argv();
 }
 
 int		main(int argc, char **argv, char **envp)
 {
 	(void) argc;
 	(void) argv;
-	char *buf = "cat abc.txt > a > b > \'c  \"| \'cat b | cat c | helloworld |";
+	char *buf = "< 1abc       <<    bbb           <  asdfds | <sdf";
 
 	init(envp);
 	parse(buf);
 	t_cmd *cmd;
-	cmd = all()->cmd;
+	cmd = all()->cmd_info;
 	while (cmd)
 	{
-		printf("%s\n", cmd->rawcmd);
+		printf("pipe : %s\n", cmd->rawcmd);
+		t_iobox *current;
+		current = cmd->io;
+		while (current)
+		{
+			printf("type : %d, s : |%s|\n", current->type, current->data);
+			current = current->next;
+		}
 		cmd = cmd->next;
 	}
 
-
-	//add_rds(all()->cmds[0], "a");
-	//add_rds(all()->cmds[0], "b");
-	//add_rds(all()->cmds[0], "c");
 	safe_exit(0, NULL);
 	return (0);
 }
 
 
-
-
-/*
-void	add_rds(t_cmd *cmd, char *rd)
-{
-	int		len;
-	char	**new_rds;
-	int		i;
-
-	if (cmd->rds == NULL)
-	{
-		cmd->rds = malloc(sizeof(char *));
-		cmd->rds[0] = NULL;
-	}
-	len = pptr_len(cmd->rds);
-	new_rds = malloc(sizeof(char *) * (len + 2));
-	new_rds[len] = NULL;
-	i = 0;
-	while (i < len)
-	{
-		new_rds[i] = cmd->rds[i];
-		i++;
-	}
-	free(cmd->rds);
-	cmd->rds = new_rds;
-}
-
-int	pptr_len(char **chars)
-{
-	int	i;
-
-	i = 0;
-	while (chars[i])
-	{
-		i++;
-	}
-	return (i);
-}
-*/

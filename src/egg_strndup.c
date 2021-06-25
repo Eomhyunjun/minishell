@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strndup.c                                       :+:      :+:    :+:   */
+/*   egg_strndup.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 19:23:17 by heom              #+#    #+#             */
-/*   Updated: 2021/06/22 19:23:51 by heom             ###   ########.fr       */
+/*   Updated: 2021/06/25 15:45:51 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../egginshell.h"
+#include "egginshell.h"
 
-char	*ft_strndup(const char *s1, int a, int b)
+char	*egg_strndup(const char *s1, int a, int b)
 {
 	char	*copy;
 	char	*res;
@@ -20,7 +20,7 @@ char	*ft_strndup(const char *s1, int a, int b)
 
 	i = 0;
 	if (!(copy = (char *)malloc(sizeof(char) * (b - a + 2))))
-		return (NULL);
+		safe_exit(1, "egg_strndup failed!");
 	res = copy;
 	while (a <= b)
 		copy[i++] = s1[a++];
