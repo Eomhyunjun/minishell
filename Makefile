@@ -6,7 +6,7 @@
 #    By: heom <heom@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/10 12:51:40 by heom              #+#    #+#              #
-#    Updated: 2021/06/28 18:49:29 by heom             ###   ########.fr        #
+#    Updated: 2021/06/28 22:38:50 by heom             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,11 @@ SRCS = \
 			init \
 			make_argv \
 			io_try_push \
-			add_charbox \
+			charbox \
+			interpret_quote_env \
+			is_quote \
 			utils/ft_bzero \
+			utils/ft_strncmp \
 
 
 OBJS = $(FIL:.c=.o)

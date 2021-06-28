@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 15:22:35 by heom              #+#    #+#             */
-/*   Updated: 2021/06/28 18:53:29 by heom             ###   ########.fr       */
+/*   Updated: 2021/06/28 19:30:28 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ void	make_argv(void)
 	while (current)
 	{
 		make_argv_item(current);
+		interpret_quote_env(current);
 		current = current->next;
 	}
+
 }

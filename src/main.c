@@ -6,30 +6,11 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 14:19:09 by heom              #+#    #+#             */
-/*   Updated: 2021/06/28 18:53:14 by heom             ###   ########.fr       */
+/*   Updated: 2021/06/28 21:01:29 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "egginshell.h"
-
-int		is_quote(char c, int *quote)
-{
-	if (c == '\"' && *quote != Q_SINGLE)
-		if (*quote == Q_DOUBLE)
-			*quote = Q_NONE;
-		else
-			*quote = Q_DOUBLE;
-	else if (c == '\'' && *quote != Q_DOUBLE)
-	{
-		if (*quote == Q_SINGLE)
-			*quote = Q_NONE;
-		else
-			*quote = Q_SINGLE;
-	}
-	if (*quote == Q_NONE)
-		return (0);
-	return (1);
-}
 
 void	make_rawcmd(char *buf)
 {
@@ -65,7 +46,7 @@ int		main(int argc, char **argv, char **envp)
 {
 	(void) argc;
 	(void) argv;
-	char *buf = "kkk < 1abc   lll    <<  mmm  bb\"b   \"c  d nnn   >  asdfds xxx>zzz |>>sdf ss";
+	char *buf = "kkk < 1abc   lll \"$A\"   <<  mmm  bb\"b   \"c  d nnn   >  asdfds xxx>zzz |>>sdf ss";
 
 	init(envp);
 	parse(buf);
@@ -90,6 +71,7 @@ int		main(int argc, char **argv, char **envp)
 		}
 		cmd = cmd->next;
 	}
+	printf("to_chars_test: %s", to_chars(all()->cmd_info->io));
 
 	safe_exit(0, NULL);
 	return (0);

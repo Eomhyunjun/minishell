@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:54:30 by heom              #+#    #+#             */
-/*   Updated: 2021/06/25 12:49:49 by heom             ###   ########.fr       */
+/*   Updated: 2021/06/28 22:46:30 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,19 @@ void test_read()
 	}
 }
 
+void test_interpret_quote_env_item()
+{
+	printf("%s\n", interpret_quote_env_item("1dd"));
+	printf("%s\n", interpret_quote_env_item("2dd\"'\"abc"));
+	printf("%s\n", interpret_quote_env_item("3dd'\"'abc"));
+	printf("%s\n", interpret_quote_env_item("4dd"));
+	printf("%s\n", interpret_quote_env_item("5dd\"d\""));
+	printf("%s\n", interpret_quote_env_item("6dd$PAT"));
+	printf("%s\n", interpret_quote_env_item("dd''$A''\"\"c"));
+	printf("%s\n", interpret_quote_env_item("dd\"$A\""));
+	printf("%s\n", interpret_quote_env_item("dd\"d$A\""));
+}
+
 void test_readline(int argc, char **argv)
 {
 	(void)argv;
@@ -70,11 +83,16 @@ void test_readline(int argc, char **argv)
   }
 }
 
-int main(int argc, char **argv)
+int main(int argc, char **argv, char **envp)
 {
+	(void)argc;
+	(void)argv;
+
+	all()->dup_envp = envp;
 	// test_add_cmds();
 	// test_add_cmd();
 	// test_read();
-	test_readline(argc, argv);
+	// test_readline(argc, argv);
+	test_interpret_quote_env_item();
 	return (0);
 }

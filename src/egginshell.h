@@ -57,12 +57,23 @@ io_try_push(t_cmd *current, int i);
 void
 add_charbox(t_charbox **container, char *allocated, int type);
 
+char
+*to_chars(t_charbox *charbox);
+
+void
+interpret_quote_env(t_cmd *cmd);
+
+char
+*interpret_quote_env_item(char *data);
 /*
 ** utils
 */
 
 void
 ft_bzero(void *s, size_t n);
+
+int
+ft_strncmp(const char *s1, const char *s2, size_t n);
 
 
 

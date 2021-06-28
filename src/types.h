@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 13:21:09 by heom              #+#    #+#             */
-/*   Updated: 2021/06/28 18:38:33 by heom             ###   ########.fr       */
+/*   Updated: 2021/06/28 18:56:29 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ typedef struct	s_cmd
 {
 	char			*rawcmd;
 	char			path[1024];
+	t_charbox		*io;
 	t_charbox		*argv;
 	int				input_mode;
 	int				output_mode;
-	t_charbox		*io;
 	char			*file_input;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;

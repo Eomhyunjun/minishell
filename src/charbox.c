@@ -1,18 +1,62 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_charbox.c                                      :+:      :+:    :+:   */
+/*   charbox.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 18:43:48 by heom              #+#    #+#             */
-/*   Updated: 2021/06/28 18:43:56 by heom             ###   ########.fr       */
+/*   Updated: 2021/06/28 20:05:38 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "egginshell.h"
 
-void	add_charbox(t_charbox **container, char *allocated, int type)
+char
+	*to_chars_put_data(t_charbox *charbox, char *chars)
+{
+	t_charbox	*current;
+	long		i;
+	long		j;
+
+	current = charbox;
+	j = 0;
+	while (current)
+	{
+		i = 0;
+		while (current->data[i])
+			chars[j++] = current->data[i++];
+		current = current->next;
+	}
+	return (chars);
+}
+
+char
+	*to_chars(t_charbox *charbox)
+{
+	t_charbox	*current;
+	long		i;
+	long		j;
+	char		*chars;
+
+	current = charbox;
+	j = 0;
+	while (current)
+	{
+		i = 0;
+		while (current->data[i])
+			i++;
+		j += i;
+		current = current->next;
+	}
+	if (!(chars = malloc(sizeof(char) * (j + 1))))
+		safe_exit(1, "to_chars chars malloc failed!");
+	chars[j] = '\0';
+	return (to_chars_put_data(charbox, chars));
+}
+
+void
+	add_charbox(t_charbox **container, char *allocated, int type)
 {
 	t_charbox *new_box;
 	t_charbox *last_box;
