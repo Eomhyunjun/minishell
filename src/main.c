@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 14:19:09 by heom              #+#    #+#             */
-/*   Updated: 2021/06/25 17:14:23 by heom             ###   ########.fr       */
+/*   Updated: 2021/06/28 18:53:14 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int		main(int argc, char **argv, char **envp)
 {
 	(void) argc;
 	(void) argv;
-	char *buf = "< 1abc       <<    bbb           <  asdfds | <sdf";
+	char *buf = "kkk < 1abc   lll    <<  mmm  bb\"b   \"c  d nnn   >  asdfds xxx>zzz |>>sdf ss";
 
 	init(envp);
 	parse(buf);
@@ -73,13 +73,20 @@ int		main(int argc, char **argv, char **envp)
 	cmd = all()->cmd_info;
 	while (cmd)
 	{
-		printf("pipe : %s\n", cmd->rawcmd);
-		t_iobox *current;
-		current = cmd->io;
-		while (current)
+
+		printf("--------\ncmd: %s\n", cmd->rawcmd);
+		t_charbox *charbox;
+		charbox = cmd->io;
+		while (charbox)
 		{
-			printf("type : %d, s : |%s|\n", current->type, current->data);
-			current = current->next;
+			printf("io type : %d, s : |%s|\n", charbox->type, charbox->data);
+			charbox = charbox->next;
+		}
+		charbox = cmd->argv;
+		while (charbox)
+		{
+			printf("argv type : %d, s : |%s|\n", charbox->type, charbox->data);
+			charbox = charbox->next;
 		}
 		cmd = cmd->next;
 	}

@@ -51,6 +51,11 @@ char
 int
 is_quote(char c, int *quote);
 
+int
+io_try_push(t_cmd *current, int i);
+
+void
+add_charbox(t_charbox **container, char *allocated, int type);
 
 /*
 ** utils
