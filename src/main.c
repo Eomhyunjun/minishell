@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 14:19:09 by heom              #+#    #+#             */
-/*   Updated: 2021/06/28 21:01:29 by heom             ###   ########.fr       */
+/*   Updated: 2021/06/29 15:23:06 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ int		main(int argc, char **argv, char **envp)
 		}
 		cmd = cmd->next;
 	}
-	printf("to_chars_test: %s", to_chars(all()->cmd_info->io));
-
 	safe_exit(0, NULL);
 	return (0);
 }

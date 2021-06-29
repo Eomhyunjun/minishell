@@ -6,7 +6,7 @@
 #    By: heom <heom@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/10 12:51:40 by heom              #+#    #+#              #
-#    Updated: 2021/06/28 22:38:50 by heom             ###   ########.fr        #
+#    Updated: 2021/06/29 20:39:00 by heom             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SRCS = \
 			get_none_pos \
 			init \
 			make_argv \
-			io_try_push \
+			try_push \
 			charbox \
 			interpret_quote_env \
 			is_quote \

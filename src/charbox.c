@@ -6,11 +6,12 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 18:43:48 by heom              #+#    #+#             */
-/*   Updated: 2021/06/28 20:05:38 by heom             ###   ########.fr       */
+/*   Updated: 2021/06/29 15:24:11 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "egginshell.h"
+
 
 char
 	*to_chars_put_data(t_charbox *charbox, char *chars)
@@ -30,6 +31,7 @@ char
 	}
 	return (chars);
 }
+
 
 char
 	*to_chars(t_charbox *charbox)
@@ -55,6 +57,7 @@ char
 	return (to_chars_put_data(charbox, chars));
 }
 
+//할당해서 box에 data랑 type 넣어주는 함수
 void
 	add_charbox(t_charbox **container, char *allocated, int type)
 {

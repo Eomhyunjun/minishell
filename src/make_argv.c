@@ -6,33 +6,11 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 15:22:35 by heom              #+#    #+#             */
-/*   Updated: 2021/06/28 19:30:28 by heom             ###   ########.fr       */
+/*   Updated: 2021/06/29 20:39:07 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "egginshell.h"
-
-int		cmd_try_push(t_cmd *current, int i)
-{
-	char	*rawcmd;
-	char	*dub_res;
-	int		start;
-	int		end;
-
-	rawcmd = current->rawcmd;
-	i = get_none_space_pos(rawcmd, i);
-	if (!rawcmd[i])
-		return (i);
-	start = i;
-	i = get_none_name_pos(rawcmd, i);
-	end = i - 1;
-	dub_res = egg_strndup(rawcmd, start, end);
-	if (!dub_res[0])
-		free(dub_res);
-	else
-		add_charbox(&current->argv, dub_res, 0);
-	return (i);
-}
 
 void	make_argv_item(t_cmd *current)
 {
@@ -62,5 +40,4 @@ void	make_argv(void)
 		interpret_quote_env(current);
 		current = current->next;
 	}
-
 }

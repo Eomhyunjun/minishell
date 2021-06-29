@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 19:30:34 by heom              #+#    #+#             */
-/*   Updated: 2021/06/28 22:45:16 by heom             ###   ########.fr       */
+/*   Updated: 2021/06/29 17:36:28 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,10 +141,9 @@ char
 	}
 	chars = egg_strndup(data, start, i - 1);
 	add_charbox(&box, chars, 0);
-
 	// " 열린 채로 끝났을 때 에러 처리 필요함.
 	res = to_chars(box);
-	free(box); //more
+	safe_charbox_free(box);
 	return (res);
 }
 
@@ -152,15 +151,23 @@ void
 	interpret_quote_env(t_cmd *cmd)
 {
 	t_charbox	*io;
-	// t_charbox	*argv;
+	t_charbox	*argv;
+	char *tmp;
 
 	io = cmd->io;
 	while (io)
 	{
+		tmp = io->data;
 		io->data = interpret_quote_env_item(io->data);
+		free(tmp);
 		io = io->next;
 	}
-
-	//
-
+	argv = cmd->argv;
+	while (argv)
+	{
+		tmp = argv->data;
+		argv->data = interpret_quote_env_item(argv->data);
+		free(tmp);
+		argv = argv->next;
+	}
 }

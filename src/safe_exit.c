@@ -6,13 +6,25 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 20:02:09 by heom              #+#    #+#             */
-/*   Updated: 2021/06/25 16:28:54 by heom             ###   ########.fr       */
+/*   Updated: 2021/06/29 14:16:05 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "egginshell.h"
 
-
+void
+	safe_charbox_free(t_charbox *current)
+{
+	t_charbox	*removing;
+	while (current)
+	{
+		removing = current;
+		current = current->next;
+		if (removing->data)
+			free(removing->data);
+		free(removing);
+	}
+}
 
 void
 	safe_cmd_free(void)
@@ -23,6 +35,8 @@ void
 	current = all()->cmd_info;
 	while (current)
 	{
+		safe_charbox_free(current->io);
+		safe_charbox_free(current->argv);
 		removing = current;
 		current = current->next;
 		if (removing->rawcmd)

@@ -34,6 +34,9 @@ void
 token_error(char token);
 
 void
+safe_charbox_free(t_charbox *current);
+
+void
 make_argv_item(t_cmd *current);
 
 void
@@ -50,6 +53,9 @@ char
 
 int
 is_quote(char c, int *quote);
+
+int
+cmd_try_push(t_cmd *current, int i);
 
 int
 io_try_push(t_cmd *current, int i);

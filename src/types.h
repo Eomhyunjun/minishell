@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 13:21:09 by heom              #+#    #+#             */
-/*   Updated: 2021/06/28 18:56:29 by heom             ###   ########.fr       */
+/*   Updated: 2021/06/29 17:37:17 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,6 @@ typedef struct	s_cmd
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }				t_cmd;
-
-
-
-/*
-** whole line
-*/
-// typedef struct s_cmds
-// {
-// 	struct s_cmd	*cmd_info;
-// 	struct s_cmds	*next;
-// 	struct s_cmds	*prev;
-// }				t_cmds;
 
 
 /*
