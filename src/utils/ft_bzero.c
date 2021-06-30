@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:41:29 by heom              #+#    #+#             */
-/*   Updated: 2021/06/21 15:42:31 by heom             ###   ########.fr       */
+/*   Updated: 2021/06/30 16:45:06 by taehokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../egginshell.h"
+#include <stdlib.h>
 
 void	ft_bzero(void *s, size_t n)
 {

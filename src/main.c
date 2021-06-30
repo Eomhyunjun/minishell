@@ -3,43 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 14:19:09 by heom              #+#    #+#             */
-/*   Updated: 2021/06/29 15:23:06 by heom             ###   ########.fr       */
+/*   Updated: 2021/06/30 17:18:46 by taehokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "egginshell.h"
 
-void	make_rawcmd(char *buf)
+void	make_heredoc(t_cmd *current)
 {
-	int	i;
-	int cmd_start;
-	int	quote;
+	char *buf;
 
-	i = 0;
-	quote = Q_NONE;
-	cmd_start = 0;
-	while (buf[i])
+	while ((buf = readline("theredoc>")))
 	{
-		if (!is_quote(buf[i], &quote) && buf[i] == '|')
+		if (buf[0] != '\0')
 		{
-			add_cmd(egg_strndup(buf, cmd_start, i - 1));
-			cmd_start = i + 1;
+			add_history(buf);
 		}
-		i++;
+		add_charbox(&current->theredoc, buf, 0); //need free
+		if (buf[0] == 'H')
+			break;
 	}
-	add_cmd(egg_strndup(buf, cmd_start, i - 1));
-	// should check if quote is open
-	// should check if only one pipe end
 }
 
-
-void	parse(char *buf)
+void	make_io(void)
 {
-	make_rawcmd(buf);
-	make_argv();
+	t_cmd	*current;
+	t_charbox	*cur_io;
+
+	current = all()->cmd_info;
+	while (current)
+	{
+		cur_io = current->io;
+		while (cur_io)
+		{
+			if (cur_io->type == RD_II)
+				make_heredoc(current);
+			cur_io = cur_io->next;
+		}
+		// need remove
+		t_charbox *Ayo;
+		Ayo = current->theredoc;
+		int i = 0;
+		while (Ayo)
+		{
+			printf("%d buf : %s\n", i++, Ayo->data);
+			Ayo = Ayo->next;
+		}
+		current = current->next;
+	}
 }
 
 int		main(int argc, char **argv, char **envp)
@@ -50,6 +64,7 @@ int		main(int argc, char **argv, char **envp)
 
 	init(envp);
 	parse(buf);
+	make_io();
 	t_cmd *cmd;
 	cmd = all()->cmd_info;
 	while (cmd)

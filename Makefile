@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: heom <heom@student.42.fr>                  +#+  +:+       +#+         #
+#    By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/10 12:51:40 by heom              #+#    #+#              #
-#    Updated: 2021/06/29 20:39:00 by heom             ###   ########.fr        #
+#    Updated: 2021/06/30 16:51:56 by taehokim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,27 +18,33 @@ RM = rm -f
 MAIN = main
 
 SRCS = \
-			add \
 			all \
+			add \
 			safe_exit \
 			egg_strndup \
-			get_none_pos \
 			init \
-			make_argv \
-			try_push \
 			charbox \
-			interpret_quote_env \
-			is_quote \
 			utils/ft_bzero \
 			utils/ft_strncmp \
+
+PARSING = \
+			parse \
+			make_cmd \
+			is_quote \
+			try_push \
+			get_none_pos \
+			interpret_quote_env \
+			dollar \
 
 
 OBJS = $(FIL:.c=.o)
 INCS = -I./inc
-LIBS = -L./lib -lhistory -lreadline -ltermcap
+LIBS =  -lreadline -ltermcap
 
 # $(addsuffix .c, $(addprefix src/, $(MAIN)))
-FIL = $(addsuffix .c, $(addprefix src/, $(SRCS))) \
+FIL = \
+		$(addsuffix .c, $(addprefix src/, $(SRCS))) \
+		$(addsuffix .c, $(addprefix src/parsing/, $(PARSING)))
 
 
 all : $(NAME)
@@ -53,7 +59,7 @@ $(NAME) : $(OBJS) src/main.o
 	gcc $(CFLAGS) $^ -o $@ $(LIBS)
 
 clean :
-	$(RM) $(OBJS)
+	$(RM) $(OBJS) src/main.o
 
 fclean : clean
 	$(RM) $(NAME) test

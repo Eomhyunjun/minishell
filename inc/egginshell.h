@@ -5,8 +5,8 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <string.h>
-# include "readline/readline.h"
-# include "readline/history.h"
+# include <readline/readline.h>
+# include <readline/history.h>
 # include "types.h"
 
 # define Q_NONE 0
@@ -20,6 +20,9 @@
 
 t_all
 *all(void);
+
+void
+parse(char *buf);
 
 void
 init(char **envp);
@@ -37,10 +40,13 @@ void
 safe_charbox_free(t_charbox *current);
 
 void
-make_argv_item(t_cmd *current);
+make_rawcmd(char *buf);
 
 void
-make_argv(void);
+make_cmd(void);
+
+void
+make_cmd_item(t_cmd *current);
 
 int
 get_none_space_pos(char *rawcmd, int i);
@@ -55,7 +61,7 @@ int
 is_quote(char c, int *quote);
 
 int
-cmd_try_push(t_cmd *current, int i);
+argv_try_push(t_cmd *current, int i);
 
 int
 io_try_push(t_cmd *current, int i);
@@ -67,12 +73,17 @@ char
 *to_chars(t_charbox *charbox);
 
 void
-interpret_quote_env(t_cmd *cmd);
+interpret_charbox(t_charbox *charbox);
 
 char
-*interpret_quote_env_item(char *data);
+*interpret_quote_env(char *data);
+
+int
+make_dollar(char *data, int start, char **replaced);
+
+
 /*
-** utils
+** ----------------   utils   ----------------------
 */
 
 void

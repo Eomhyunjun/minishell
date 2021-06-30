@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:54:30 by heom              #+#    #+#             */
-/*   Updated: 2021/06/29 14:03:40 by heom             ###   ########.fr       */
+/*   Updated: 2021/06/30 16:49:17 by taehokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "src/egginshell.h"
+#include "egginshell.h"
 
 // void test_add_cmds()
 // {
@@ -46,15 +46,15 @@ void test_read()
 
 void test_interpret_quote_env_item()
 {
-	printf("%s\n", interpret_quote_env_item("1dd"));
-	printf("%s\n", interpret_quote_env_item("2dd\"'\"abc"));
-	printf("%s\n", interpret_quote_env_item("3dd'\"'abc"));
-	printf("%s\n", interpret_quote_env_item("4dd"));
-	printf("%s\n", interpret_quote_env_item("5dd\"d\""));
-	printf("%s\n", interpret_quote_env_item("6dd$PAT"));
-	printf("%s\n", interpret_quote_env_item("dd''$A''\"\"c"));
-	printf("%s\n", interpret_quote_env_item("dd\"$A\""));
-	printf("%s\n", interpret_quote_env_item("dd\"d$A\""));
+	printf("%s\n", interpret_quote_env("1dd"));
+	printf("%s\n", interpret_quote_env("2dd\"'\"abc"));
+	printf("%s\n", interpret_quote_env("3dd'\"'abc"));
+	printf("%s\n", interpret_quote_env("4dd"));
+	printf("%s\n", interpret_quote_env("5dd\"d\""));
+	printf("%s\n", interpret_quote_env("6dd$PAT"));
+	printf("%s\n", interpret_quote_env("dd''$A''\"\"c"));
+	printf("%s\n", interpret_quote_env("dd\"$A\""));
+	printf("%s\n", interpret_quote_env("dd\"d$A\""));
 }
 
 void test_readline(int argc, char **argv)
@@ -92,7 +92,7 @@ int main(int argc, char **argv, char **envp)
 	// test_add_cmds();
 	// test_add_cmd();
 	// test_read();
-	// test_readline(argc, argv);
-	test_interpret_quote_env_item();
+	test_readline(argc, argv);
+	// test_interpret_quote_env_item();
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   try_push.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 15:50:35 by heom              #+#    #+#             */
-/*   Updated: 2021/06/29 20:38:53 by heom             ###   ########.fr       */
+/*   Updated: 2021/06/30 16:35:15 by taehokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		io_try_push(t_cmd *current, int i)
 	return (i);
 }
 
-int		cmd_try_push(t_cmd *current, int i)
+int		argv_try_push(t_cmd *current, int i)
 {
 	char	*rawcmd;
 	char	*dub_res;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   interpret_quote_env.c                              :+:      :+:    :+:   */
+/*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/28 19:30:34 by heom              #+#    #+#             */
-/*   Updated: 2021/06/29 17:36:28 by heom             ###   ########.fr       */
+/*   Created: 2021/06/30 14:36:43 by taehokim          #+#    #+#             */
+/*   Updated: 2021/06/30 16:34:43 by taehokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char
 {
 	char	*blank;
 
-	if (!(blank = malloc(1)))
+	if (!(blank = (char *)malloc(1)))
 		safe_exit(1, "create blank failed");
 	blank[0] = '\0';
 	return (blank);
@@ -67,12 +67,9 @@ char
 	return (create_blank());
 }
 
-
-
 int
 	make_dollar(char *data, int start, char **replaced)
 {
-	char	*s;
 	char	*res;
 	char	*search;
 	int		i;
@@ -84,8 +81,7 @@ int
 		; // 어떻게 될지 몰라.
 	while (all()->dup_envp[i])
 	{
-		s = all()->dup_envp[i];
-		res = replace_dollar(s, search);
+		res = replace_dollar(all()->dup_envp[i], search);
 		if (res[0] != '\0')
 		{
 			*replaced = res;
@@ -96,78 +92,4 @@ int
 	}
 	*replaced = create_blank();
 	return (end);
-}
-char
-	*interpret_quote_env_item(char *data)
-{
-	int start;
-	int	i;
-	int num;
-	char *chars;
-	t_charbox *box;
-	char *res;
-	int	quote;
-
-	i = 0;
-	start = 0;
-	num = 0;
-	quote = Q_NONE;
-	box = NULL;
-	while (data[i])
-	{
-		is_quote(data[i], &quote);
-		if (data[i] == '$' || data[i] == '"' || data[i] == '\'')
-		{
-			if ((quote == Q_SINGLE && data[i] == '$')
-				|| (quote == Q_DOUBLE && data[i] == '\'')
-				|| (quote == Q_SINGLE && data[i] == '"'))
-				;
-			else
-			{
-				if (start <= i - 1)
-				{
-					chars = egg_strndup(data, start, i - 1);
-					add_charbox(&box, chars, 0);
-				}
-				if (data[i] == '$')
-				{
-					i = make_dollar(data, i + 1, &chars);
-					add_charbox(&box, chars, 0);
-				}
-				start = i + 1;
-			}
-		}
-		i++;
-	}
-	chars = egg_strndup(data, start, i - 1);
-	add_charbox(&box, chars, 0);
-	// " 열린 채로 끝났을 때 에러 처리 필요함.
-	res = to_chars(box);
-	safe_charbox_free(box);
-	return (res);
-}
-
-void
-	interpret_quote_env(t_cmd *cmd)
-{
-	t_charbox	*io;
-	t_charbox	*argv;
-	char *tmp;
-
-	io = cmd->io;
-	while (io)
-	{
-		tmp = io->data;
-		io->data = interpret_quote_env_item(io->data);
-		free(tmp);
-		io = io->next;
-	}
-	argv = cmd->argv;
-	while (argv)
-	{
-		tmp = argv->data;
-		argv->data = interpret_quote_env_item(argv->data);
-		free(tmp);
-		argv = argv->next;
-	}
 }

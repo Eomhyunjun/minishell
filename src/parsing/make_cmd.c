@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   make_argv.c                                        :+:      :+:    :+:   */
+/*   make_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 15:22:35 by heom              #+#    #+#             */
-/*   Updated: 2021/06/29 20:39:07 by heom             ###   ########.fr       */
+/*   Updated: 2021/06/30 16:35:08 by taehokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "egginshell.h"
 
-void	make_argv_item(t_cmd *current)
+void	make_cmd_item(t_cmd *current)
 {
 	int		quote;
 	int		i;
@@ -24,20 +24,44 @@ void	make_argv_item(t_cmd *current)
 		if (!is_quote(current->rawcmd[i], &quote))
 		{
 			i = io_try_push(current, i); // only io exit error
-			i = cmd_try_push(current, i);
+			i = argv_try_push(current, i);
 		}
 	}
 }
 
-void	make_argv(void)
+void	make_cmd(void)
 {
 	t_cmd	*current;
 
 	current = all()->cmd_info;
 	while (current)
 	{
-		make_argv_item(current);
-		interpret_quote_env(current);
+		make_cmd_item(current);
+		interpret_charbox(current->io);
+		interpret_charbox(current->argv);
 		current = current->next;
 	}
+}
+
+void	make_rawcmd(char *buf)
+{
+	int	i;
+	int cmd_start;
+	int	quote;
+
+	i = 0;
+	quote = Q_NONE;
+	cmd_start = 0;
+	while (buf[i])
+	{
+		if (!is_quote(buf[i], &quote) && buf[i] == '|')
+		{
+			add_cmd(egg_strndup(buf, cmd_start, i - 1));
+			cmd_start = i + 1;
+		}
+		i++;
+	}
+	add_cmd(egg_strndup(buf, cmd_start, i - 1));
+	// should check if quote is open
+	// should check if only one pipe end
 }
