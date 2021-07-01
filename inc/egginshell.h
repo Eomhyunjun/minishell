@@ -70,7 +70,7 @@ void
 add_charbox(t_charbox **container, char *allocated, int type);
 
 char
-*to_chars(t_charbox *charbox);
+*to_chars(t_charbox *charbox, char *div);
 
 void
 interpret_charbox(t_charbox *charbox);
@@ -78,8 +78,12 @@ interpret_charbox(t_charbox *charbox);
 char
 *interpret_quote_env(char *data);
 
+
 int
 make_dollar(char *data, int start, char **replaced);
+
+void
+try_open_for_read(int *fd, char *path);
 
 
 /*
@@ -92,7 +96,10 @@ ft_bzero(void *s, size_t n);
 int
 ft_strncmp(const char *s1, const char *s2, size_t n);
 
+int
+ft_strcmp(const char *s1, const char *s2);
 
-
+int
+ft_strlen(char *str);
 
 #endif

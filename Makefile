@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: heom <heom@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/10 12:51:40 by heom              #+#    #+#              #
-#    Updated: 2021/06/30 16:51:56 by taehokim         ###   ########.fr        #
+#    Updated: 2021/07/01 16:48:54 by heom             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRCS = \
 			charbox \
 			utils/ft_bzero \
 			utils/ft_strncmp \
+			utils/ft_strlen \
 
 PARSING = \
 			parse \

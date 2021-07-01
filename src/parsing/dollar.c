@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 14:36:43 by taehokim          #+#    #+#             */
-/*   Updated: 2021/06/30 16:34:43 by taehokim         ###   ########.fr       */
+/*   Updated: 2021/07/01 16:17:57 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,20 +49,20 @@ char
 }
 
 char
-	*replace_dollar(char *s, char *search)
+	*replace_dollar(char *env, char *search)
 {
-	int		s_end;
+	int		env_end;
 	int		search_len;
 
-	s_end = 0;
+	env_end = 0;
 	search_len = 0;
 	while (search[search_len])
 		search_len++;
-	if (!(ft_strncmp(search, s, search_len)) && s[search_len] == '=')
+	if (!(ft_strncmp(search, env, search_len)) && env[search_len] == '=')
 	{
-		while (s[s_end++])
+		while (env[env_end++])
 			;
-		return (egg_strndup(s, search_len + 1, s_end));
+		return (egg_strndup(env, search_len + 1, env_end));
 	}
 	return (create_blank());
 }
@@ -85,11 +85,13 @@ int
 		if (res[0] != '\0')
 		{
 			*replaced = res;
+			free(search);
 			return (end);
 		}
 		free(res);
 		i++;
 	}
 	*replaced = create_blank();
+	free(search);
 	return (end);
 }

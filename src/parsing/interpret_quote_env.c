@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interpret_quote_env.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 19:30:34 by heom              #+#    #+#             */
-/*   Updated: 2021/06/30 14:37:02 by taehokim         ###   ########.fr       */
+/*   Updated: 2021/07/01 16:50:19 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char
 	chars = egg_strndup(o.data, o.start, o.i - 1);
 	add_charbox(&o.box, chars, 0);
 	// " 열린 채로 끝났을 때 에러 처리 필요함.
-	res = to_chars(o.box);
+	res = to_chars(o.box, "");
 	safe_charbox_free(o.box);
 	return (res);
 }
@@ -80,4 +80,5 @@ void
 		free(tmp);
 		current = current->next;
 	}
+
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:57:11 by heom              #+#    #+#             */
-/*   Updated: 2021/06/30 16:39:34 by taehokim         ###   ########.fr       */
+/*   Updated: 2021/07/01 19:53:25 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	add_cmd(char *rawcmd)
 		safe_exit(1, "new_cmd malloc failed!");
 	ft_bzero(new_cmd, sizeof(t_cmd));
 	new_cmd->rawcmd = rawcmd;
+	new_cmd->input_fd = -1;
+	new_cmd->output_fd = 1;
 	if (all()->cmd_info == NULL)
 	{
 		all()->cmd_info = new_cmd;

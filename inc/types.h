@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 13:21:09 by heom              #+#    #+#             */
-/*   Updated: 2021/06/30 16:25:22 by taehokim         ###   ########.fr       */
+/*   Updated: 2021/07/01 19:15:25 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@ typedef struct	s_cmd
 	t_charbox		*io;
 	t_charbox		*argv;
 	t_charbox		*theredoc;
-	int				input_mode;
-	int				output_mode;
+	t_charbox		*last_input;
+	t_charbox		*last_output;
+	int				input_fd;
 	char			*file_input;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
