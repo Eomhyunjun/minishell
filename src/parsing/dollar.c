@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 14:36:43 by taehokim          #+#    #+#             */
-/*   Updated: 2021/07/01 16:17:57 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/02 16:05:29 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char
 {
 	char	*blank;
 
-	if (!(blank = (char *)malloc(1)))
+	if (!ft_malloc(&blank, 1))
 		safe_exit(1, "create blank failed");
 	blank[0] = '\0';
 	return (blank);

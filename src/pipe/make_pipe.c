@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   make_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/25 15:21:31 by heom              #+#    #+#             */
-/*   Updated: 2021/07/02 16:01:45 by heom             ###   ########.fr       */
+/*   Created: 2021/07/02 14:00:58 by heom              #+#    #+#             */
+/*   Updated: 2021/07/02 14:04:28 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "egginshell.h"
 
-void	init(char **envp)
+void
+	make_pipe(void)
 {
-	all()->dup_envp = envp;
-	// all()->path = get_path();
+	t_cmd	*current;
+
+	current = all()->cmd_info;
+	while (current)
+	{
+		if (pipe(current->pipe_fd))
+			safe_exit(1, "pipe error!\n");
+		current = current->next;
+	}
 }

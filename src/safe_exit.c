@@ -6,24 +6,39 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 20:02:09 by heom              #+#    #+#             */
-/*   Updated: 2021/06/29 14:16:05 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/02 16:39:12 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "egginshell.h"
 
 void
-	safe_charbox_free(t_charbox *current)
+	free_charbox(t_charbox *charbox)
 {
 	t_charbox	*removing;
-	while (current)
+
+	while (charbox)
 	{
-		removing = current;
-		current = current->next;
+		removing = charbox;
+		charbox = charbox->next;
 		if (removing->data)
 			free(removing->data);
 		free(removing);
 	}
+}
+
+void
+	free_char_double_ptr(char **pp)
+{
+	int	i;
+
+	i = 0;
+	while (pp[i])
+	{
+		free(pp[i]);
+		i++;
+	}
+	free(pp);
 }
 
 void
@@ -35,8 +50,9 @@ void
 	current = all()->cmd_info;
 	while (current)
 	{
-		safe_charbox_free(current->io);
-		safe_charbox_free(current->argv);
+		free_charbox(current->io);
+		free_charbox(current->argv);
+		free_charbox(current->theredoc);
 		removing = current;
 		current = current->next;
 		if (removing->rawcmd)

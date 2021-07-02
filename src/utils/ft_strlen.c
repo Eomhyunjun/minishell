@@ -6,19 +6,19 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 16:47:48 by heom              #+#    #+#             */
-/*   Updated: 2021/07/01 16:48:36 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/02 18:21:51 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "egginshell.h"
-
 int
-	ft_strlen(char *str)
+	ft_strlen(char const *s)
 {
-	int i;
+	int	i;
 
+	if (s == 0)
+		return (0);
 	i = 0;
-	while (str[i])
+	while (s[i])
 		i++;
 	return (i);
 }

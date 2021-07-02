@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 13:21:09 by heom              #+#    #+#             */
-/*   Updated: 2021/07/01 19:15:25 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/02 15:50:27 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,15 @@ typedef struct	s_oil
 typedef struct	s_cmd
 {
 	char			*rawcmd;
-	char			path[1024];
 	t_charbox		*io;
 	t_charbox		*argv;
 	t_charbox		*theredoc;
 	t_charbox		*last_input;
 	t_charbox		*last_output;
 	int				input_fd;
-	char			*file_input;
+	int				output_fd;
+	int				pipe_fd[2];
+	int				pid;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }				t_cmd;
@@ -55,6 +56,7 @@ typedef struct	s_all
 {
 	struct s_cmd	*cmd_info;
 	char			**dup_envp;
+	char			**path;
 }				t_all;
 
 #endif

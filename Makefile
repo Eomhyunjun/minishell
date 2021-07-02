@@ -6,7 +6,7 @@
 #    By: heom <heom@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/10 12:51:40 by heom              #+#    #+#              #
-#    Updated: 2021/07/01 16:48:54 by heom             ###   ########.fr        #
+#    Updated: 2021/07/02 18:12:39 by heom             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,9 +24,16 @@ SRCS = \
 			egg_strndup \
 			init \
 			charbox \
+			try_open \
 			utils/ft_bzero \
 			utils/ft_strncmp \
 			utils/ft_strlen \
+			utils/ft_split \
+			utils/ft_strlcpy \
+			utils/ft_strjoin \
+			utils/ft_malloc \
+			pipe/fork_loop \
+			pipe/make_pipe \
 
 PARSING = \
 			parse \
@@ -66,7 +73,7 @@ fclean : clean
 	$(RM) $(NAME) test
 
 test : $(OBJS) test.c
-	gcc $(CFLAGS)  $^ -o test $(LIBS)
+	gcc $(CFLAGS) $(INCS) $^ -o test $(LIBS)
 
 re: fclean all
 

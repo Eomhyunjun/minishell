@@ -1,19 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/25 15:21:31 by heom              #+#    #+#             */
-/*   Updated: 2021/07/02 16:01:45 by heom             ###   ########.fr       */
+/*   Created: 2021/07/02 15:49:30 by heom              #+#    #+#             */
+/*   Updated: 2021/07/02 15:49:34 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "egginshell.h"
 
-void	init(char **envp)
+char
+	**get_path(void)
 {
-	all()->dup_envp = envp;
-	// all()->path = get_path();
+	int		i;
+	char	*s;
+
+	i = 0;
+	while (all()->dup_envp[i])
+	{
+		s = all()->dup_envp[i];
+		if (s[0] == 'P' && s[1] == 'A' &&
+			s[2] == 'T' && s[3] == 'H' &&
+			s[4] == '=')
+			return (ft_split(&s[5], ':'));
+		i++;
+	}
+	return (NULL);
 }

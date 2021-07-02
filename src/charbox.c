@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 18:43:48 by heom              #+#    #+#             */
-/*   Updated: 2021/07/01 16:58:11 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/02 18:18:37 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +59,60 @@ char
 		current = current->next;
 	}
 	total_len -= div_len;
-	if (!(chars = malloc(sizeof(char) * (total_len + 1))))
+	if (!ft_malloc(&chars, sizeof(char) * (total_len + 1)))
 		safe_exit(1, "to_chars chars malloc failed!");
 	chars[total_len] = '\0';
 	return (to_chars_put_data(charbox, chars, div));
 }
 
-//할당해서 box에 data랑 type 넣어주는 함수
+int
+	charbox_len(t_charbox *charbox)
+{
+	int			i;
+	t_charbox	*current;
+
+	current = charbox;
+	i = 0;
+	while (current)
+	{
+		i++;
+		current = current->next;
+	}
+	return (i);
+}
+
+char
+	**to_double_ptr(t_charbox *charbox)
+{
+	t_charbox	*current;
+	int			len;
+	int			i;
+	char		**ret;
+	char		*pushing;
+
+	len = charbox_len(charbox);
+	if (!ft_malloc(&ret, sizeof(char *) * (len + 1)))
+		safe_exit(1, "to_double_ptr malloc failed");
+	ret[len] = 0;
+	current = charbox;
+	i = 0;
+	while (current)
+	{
+		pushing = egg_strdup(current->data);
+		ret[i] = pushing;
+		i++;
+		current = current->next;
+	}
+	return (ret);
+}
+
 void
 	add_charbox(t_charbox **container, char *allocated, int type)
 {
 	t_charbox *new_box;
 	t_charbox *last_box;
 
-	if ((new_box = malloc(sizeof(t_charbox))) == 0)
+	if (!ft_malloc(&new_box, sizeof(t_charbox)))
 		safe_exit(1, "new_box malloc failed!");
 	ft_bzero(new_box, sizeof(t_charbox));
 	new_box->data = allocated;

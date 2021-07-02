@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:54:30 by heom              #+#    #+#             */
-/*   Updated: 2021/06/30 16:49:17 by taehokim         ###   ########.fr       */
+/*   Updated: 2021/07/02 16:27:33 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void test_readline(int argc, char **argv)
 //   }
 
   char* buf;
-  while ((buf = readline("🐣  ")) != 0) {
+  while ((buf = readline("egg > ")) != 0) {
     if (strlen(buf) > 0) {
       add_history(buf);
     }
@@ -83,6 +83,37 @@ void test_readline(int argc, char **argv)
   }
 }
 
+void test_ft_malloc()
+{
+	char *p;
+	int res = ft_malloc(&p, 10);
+	p[0] = 'a';
+	p[1] = 'b';
+	p[2] = 'c';
+	p[3] = 'h';
+	p[4] = 'a';
+	p[5] = 'o';
+	p[6] = '\0';
+	printf("%d %p %s\n", res, p, p);
+}
+
+void test_to_double_ptr()
+{
+	t_charbox *box;
+	add_charbox(&box, egg_strdup("hi"), 0);
+	add_charbox(&box, egg_strdup("ho"), 0);
+	add_charbox(&box, egg_strdup("he"), 0);
+	add_charbox(&box, egg_strdup("hu"), 0);
+
+	char **box2 = to_double_ptr(box);
+	int i = 0;
+	while (box2[i])
+	{
+		printf("%d: %s\n", i, box2[i]);
+		i++;
+	}
+}
+
 int main(int argc, char **argv, char **envp)
 {
 	(void)argc;
@@ -92,7 +123,9 @@ int main(int argc, char **argv, char **envp)
 	// test_add_cmds();
 	// test_add_cmd();
 	// test_read();
-	test_readline(argc, argv);
+	// test_readline(argc, argv);
+	// test_ft_malloc();
+	test_to_double_ptr();
 	// test_interpret_quote_env_item();
 	return (0);
 }

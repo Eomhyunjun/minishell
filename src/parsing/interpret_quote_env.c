@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 19:30:34 by heom              #+#    #+#             */
-/*   Updated: 2021/07/01 16:50:19 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/02 16:36:34 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char
 	add_charbox(&o.box, chars, 0);
 	// " 열린 채로 끝났을 때 에러 처리 필요함.
 	res = to_chars(o.box, "");
-	safe_charbox_free(o.box);
+	free_charbox(o.box);
 	return (res);
 }
 

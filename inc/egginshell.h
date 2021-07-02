@@ -37,7 +37,10 @@ void
 token_error(char token);
 
 void
-safe_charbox_free(t_charbox *current);
+free_charbox(t_charbox *charbox);
+
+void
+free_char_double_ptr(char **pp);
 
 void
 make_rawcmd(char *buf);
@@ -53,6 +56,9 @@ get_none_space_pos(char *rawcmd, int i);
 
 int
 get_none_name_pos(char *rawcmd, int i);
+
+char
+*egg_strdup(const char *s1);
 
 char
 *egg_strndup(const char *s1, int a, int b);
@@ -72,6 +78,9 @@ add_charbox(t_charbox **container, char *allocated, int type);
 char
 *to_chars(t_charbox *charbox, char *div);
 
+char
+**to_double_ptr(t_charbox *charbox);
+
 void
 interpret_charbox(t_charbox *charbox);
 
@@ -85,6 +94,18 @@ make_dollar(char *data, int start, char **replaced);
 void
 try_open_for_read(int *fd, char *path);
 
+char
+**get_path(void);
+
+/*
+** ----------------   pipe   ----------------------
+*/
+
+void
+make_pipe(void);
+
+void
+fork_loop(void);
 
 /*
 ** ----------------   utils   ----------------------
@@ -100,6 +121,19 @@ int
 ft_strcmp(const char *s1, const char *s2);
 
 int
-ft_strlen(char *str);
+ft_strlen(const char *str);
+
+char
+**ft_split(char const *s, char c);
+
+unsigned int
+ft_strlcpy(char *dest, char *src, unsigned int size);
+
+int
+ft_malloc(void *pp, size_t size);
+
+char
+*ft_strjoin(char const *s1, char const *mid, char const *s2);
+
 
 #endif

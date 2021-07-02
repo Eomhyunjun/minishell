@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_malloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/25 15:21:31 by heom              #+#    #+#             */
-/*   Updated: 2021/07/02 16:01:45 by heom             ###   ########.fr       */
+/*   Created: 2021/07/02 15:54:40 by heom              #+#    #+#             */
+/*   Updated: 2021/07/02 15:58:47 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "egginshell.h"
+#include <stdlib.h>
 
-void	init(char **envp)
+int
+	ft_malloc(void *pp, size_t size)
 {
-	all()->dup_envp = envp;
-	// all()->path = get_path();
+	void	**ppa;
+
+	ppa = (void **)pp;
+	*ppa = malloc(size);
+	if (!*ppa)
+		return (0);
+	return (1);
 }

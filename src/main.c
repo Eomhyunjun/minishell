@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 14:19:09 by heom              #+#    #+#             */
-/*   Updated: 2021/07/01 20:18:19 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/02 18:24:10 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	make_heredoc(t_cmd *current, t_charbox *cur_io)
 		{
 			merge = to_chars(tmp_doc, "\n");
 			add_charbox(&current->theredoc, merge, -2);
-			safe_charbox_free(tmp_doc);
+			free_charbox(tmp_doc);
 			break;
 		}
 		add_charbox(&tmp_doc, buf, 0);
@@ -80,18 +80,20 @@ void	process_rd(void)
 			}
 			else if (cur_io->type == RD_OO)
 			{
-				current->output_fd = open(cur_io->data, O_RDWR | O_CREAT, 0644);
+				// 이전 output_fd close 해줘야 함. -> 했음
+				close(current->output_fd);
+				current->output_fd = open(cur_io->data, O_RDWR | O_CREAT | O_APPEND, 0644); // 에러 처리 해야 함. 안했음
 				current->last_output = cur_io;
 			}
 			else
 			{
-				current->output_fd = open(cur_io->data, O_RDWR | O_CREAT, 0644);
+				// 이전 output_fd close 해줘야 함. -> 했음
+				close(current->output_fd);
+				current->output_fd = open(cur_io->data, O_RDWR | O_CREAT, 0644); // 에러 처리 해야 함. 안했음
 				current->last_output = cur_io;
 			}
 			cur_io = cur_io->next;
 		}
-		if (current->last_input->type == '-2')
-			current->input_fd = -1;
 		current = current->next;
 	}
 }
@@ -106,11 +108,15 @@ int		main(int argc, char **argv, char **envp)
 {
 	(void) argc;
 	(void) argv;
-	char *buf = "kkk < 1abc   lll \"$A\"   <<  mmm  bb\"b   \"c  d nnn   >  asdfds xxx>zzz |>>sdf ss";
-
+	//char *buf = "echo < a   ayo \"$A\"   <<  mmm  bb\"b   \"c  d nnn   >  bb xxx>ccc |>>dddd ss";
+	char *buf = "<a echo >b";
 	init(envp);
 	parse(buf);
 	make_io();
+	make_pipe();
+	fork_loop();
+
+	//have to be removed
 	t_cmd *cmd;
 	cmd = all()->cmd_info;
 	while (cmd)
