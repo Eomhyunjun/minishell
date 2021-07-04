@@ -6,16 +6,17 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:57:11 by heom              #+#    #+#             */
-/*   Updated: 2021/07/04 14:20:11 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/04 16:25:42 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "egginshell.h"
 
-void	add_cmd(char *rawcmd)
+void
+	add_cmd(char *rawcmd)
 {
-	t_cmd *new_cmd;
-	t_cmd *last_cmd;
+	t_cmd	*new_cmd;
+	t_cmd	*last_cmd;
 
 	if (!ft_malloc(&new_cmd, sizeof(t_cmd)))
 		safe_exit(1, "new_cmd malloc failed!");

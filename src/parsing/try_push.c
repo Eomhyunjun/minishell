@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   try_push.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 15:50:35 by heom              #+#    #+#             */
-/*   Updated: 2021/06/30 16:35:15 by taehokim         ###   ########.fr       */
+/*   Updated: 2021/07/04 16:26:50 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "egginshell.h"
 
-
-int		add_io(t_cmd *current, int type, int i)
+int
+	add_io(t_cmd *current, int type, int i)
 {
 	int		start;
 	int		end;
@@ -33,7 +33,8 @@ int		add_io(t_cmd *current, int type, int i)
 	return (i);
 }
 
-int		io_try_push(t_cmd *current, int i)
+int
+	io_try_push(t_cmd *current, int i)
 {
 	char	*rawcmd;
 
@@ -52,7 +53,8 @@ int		io_try_push(t_cmd *current, int i)
 	return (i);
 }
 
-int		argv_try_push(t_cmd *current, int i)
+int
+	argv_try_push(t_cmd *current, int i)
 {
 	char	*rawcmd;
 	char	*dub_res;

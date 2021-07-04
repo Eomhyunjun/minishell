@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 15:22:35 by heom              #+#    #+#             */
-/*   Updated: 2021/07/01 14:52:35 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/04 16:37:53 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	make_cmd_item(t_cmd *current)
 	{
 		if (!is_quote(current->rawcmd[i], &quote))
 		{
-			i = io_try_push(current, i); // only io exit error
+			i = io_try_push(current, i); // only one io exit --> error
 			i = argv_try_push(current, i);
 		}
 	}
@@ -46,7 +46,7 @@ void	make_cmd(void)
 void	make_rawcmd(char *buf)
 {
 	int	i;
-	int cmd_start;
+	int	cmd_start;
 	int	quote;
 
 	i = 0;

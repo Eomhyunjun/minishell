@@ -63,7 +63,6 @@ char
 char
 *egg_strndup(const char *s1, int a, int b);
 
-
 int
 is_quote(char c, int *quote);
 

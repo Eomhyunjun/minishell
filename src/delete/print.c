@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/04 14:25:06 by heom              #+#    #+#             */
-/*   Updated: 2021/07/04 14:59:24 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/04 16:41:33 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,14 @@ void
 	dprintf(2, "%20s\n", charbox_name);
 	while (current)
 	{
-		dprintf(2, "                    	%03d data=|%s|, type=%d\n", i, current->data, current->type);
+		dprintf(2, "       %03d data=|%s|, type=%d\n", i, current->data, current->type);
 		current = current->next;
 		i++;
 	}
 }
 
-void print_cmd(t_cmd *cmd)
+void
+	print_cmd(t_cmd *cmd)
 {
 	dprintf(2, "-------------------\n");
 	dprintf(2, "%20s: %s\n", "rawcmd", cmd->rawcmd);
@@ -44,17 +45,3 @@ void print_cmd(t_cmd *cmd)
 	dprintf(2, "%20s: %d\n", "pipe_fd[1]", cmd->pipe_fd[1]);
 	dprintf(2, "%20s: %d\n", "pid", cmd->pid);
 }
-
-
-	char			*rawcmd;
-	t_charbox		*io;
-	t_charbox		*argv;
-	t_charbox		*theredoc;
-	t_charbox		*last_input;
-	t_charbox		*last_output;
-	int				input_fd;
-	int				output_fd;
-	int				pipe_fd[2];
-	int				pid;
-	struct s_cmd	*next;
-	struct s_cmd	*prev;

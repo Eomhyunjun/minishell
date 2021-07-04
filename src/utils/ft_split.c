@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 15:45:09 by heom              #+#    #+#             */
-/*   Updated: 2021/07/02 16:06:01 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/04 16:29:45 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ static size_t	get_size(const char *s, char c)
 	return (ret);
 }
 
-static	char	*get_next(const char **s, size_t *len_word, char c)
+static char
+	*get_next(const char **s, size_t *len_word, char c)
 {
 	char	*ret;
 
@@ -45,7 +46,8 @@ static	char	*get_next(const char **s, size_t *len_word, char c)
 	return (ret);
 }
 
-static char		**free_all(char **tab, int k)
+static char
+	**free_all(char **tab, int k)
 {
 	int		idx;
 
@@ -59,7 +61,8 @@ static char		**free_all(char **tab, int k)
 	return (NULL);
 }
 
-char			**ft_split(char const *s, char c)
+char
+	**ft_split(char const *s, char c)
 {
 	char	**ret;
 	char	*beg_word;

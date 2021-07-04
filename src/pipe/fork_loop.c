@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 14:06:52 by heom              #+#    #+#             */
-/*   Updated: 2021/07/04 16:14:30 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/04 16:28:11 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ char
 	char	**new_argv;
 	int		i;
 
-	// if (!(check_cmd(current->argv->data)))
-	// 	return ("Invalid command");
+	// todo: 경로가 왔을 경우 해당 경로의 프로그램을 실행해야 함.
 	i = 0;
 	while (all()->path[i])
 	{
@@ -50,13 +49,10 @@ void
 {
 	char	*msg;
 
-	//input
 	if (current->last_input == NULL && current->prev != NULL)
 		dup2(current->pipe_fd[0], STDIN_FILENO);
 	else if (current->last_input != NULL && current->last_input->type == RD_I)
 		dup2(current->input_fd, STDIN_FILENO);
-
-	//output
 	if (current->last_output == NULL && current->next != NULL)
 		dup2(current->next->pipe_fd[1], STDOUT_FILENO);
 	else if (current->last_output != NULL)
@@ -74,7 +70,6 @@ void
 	current = all()->cmd_info;
 	while (current)
 	{
-
 		current->pid = fork();
 		if (current->pid == -1)
 			safe_exit(1, "fork error!\n");
