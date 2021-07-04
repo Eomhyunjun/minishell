@@ -6,7 +6,7 @@
 #    By: heom <heom@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/10 12:51:40 by heom              #+#    #+#              #
-#    Updated: 2021/07/04 13:40:30 by heom             ###   ########.fr        #
+#    Updated: 2021/07/04 14:27:03 by heom             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,8 @@ SRCS = \
 			init \
 			charbox \
 			try_open \
+			get_path \
+			make_io \
 			utils/ft_bzero \
 			utils/ft_strncmp \
 			utils/ft_strlen \
@@ -35,6 +37,7 @@ SRCS = \
 			utils/ft_putstr \
 			pipe/fork_loop \
 			pipe/make_pipe \
+			delete/print \
 
 PARSING = \
 			parse \

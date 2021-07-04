@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 20:02:09 by heom              #+#    #+#             */
-/*   Updated: 2021/07/04 13:39:52 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/04 13:51:55 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void
 	safe_exit(int code, char *msg)
 {
 	safe_cmd_free();
-	dprintf(2, "%s\n", strerror(errno));
 	if (code != 0 && msg && msg[0])
 		ft_putstr(2, msg);
 	exit(code);

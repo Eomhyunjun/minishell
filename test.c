@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:54:30 by heom              #+#    #+#             */
-/*   Updated: 2021/07/02 16:27:33 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/04 15:19:31 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,18 +114,34 @@ void test_to_double_ptr()
 	}
 }
 
+void test_primitive(int argc, char **argv, char **envp)
+{
+	(void)	argc;
+	(void)	argv;
+	char	*buf;
+
+
+	init(envp);
+
+	buf = "echo 123";
+	parse(buf);
+	make_io();
+	make_pipe();
+	fork_loop();
+}
+
 int main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
 
-	all()->dup_envp = envp;
 	// test_add_cmds();
 	// test_add_cmd();
 	// test_read();
 	// test_readline(argc, argv);
 	// test_ft_malloc();
-	test_to_double_ptr();
+	// test_to_double_ptr();
 	// test_interpret_quote_env_item();
+	test_primitive(argc, argv, envp);
 	return (0);
 }

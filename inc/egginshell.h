@@ -88,6 +88,8 @@ interpret_charbox(t_charbox *charbox);
 char
 *interpret_quote_env(char *data);
 
+void
+make_io(void);
 
 int
 make_dollar(char *data, int start, char **replaced);
@@ -97,6 +99,9 @@ try_open_for_read(int *fd, char *path);
 
 char
 **get_path(void);
+
+void
+close_unused(void);
 
 /*
 ** ----------------   pipe   ----------------------
@@ -139,5 +144,11 @@ ft_malloc(void *pp, size_t size);
 char
 *ft_strjoin(char const *s1, char const *mid, char const *s2);
 
+/*
+** ----------------  delete  ----------------------
+*/
+
+void
+print_cmd(t_cmd *cmd);
 
 #endif
