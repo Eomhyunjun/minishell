@@ -63,6 +63,7 @@ char
 char
 *egg_strndup(const char *s1, int a, int b);
 
+
 int
 is_quote(char c, int *quote);
 
@@ -116,6 +117,9 @@ ft_bzero(void *s, size_t n);
 
 int
 ft_strncmp(const char *s1, const char *s2, size_t n);
+
+void
+ft_putstr(int fd, const char *s);
 
 int
 ft_strcmp(const char *s1, const char *s2);

@@ -6,7 +6,7 @@
 #    By: heom <heom@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/10 12:51:40 by heom              #+#    #+#              #
-#    Updated: 2021/07/02 18:12:39 by heom             ###   ########.fr        #
+#    Updated: 2021/07/04 13:40:30 by heom             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRCS = \
 			utils/ft_strlcpy \
 			utils/ft_strjoin \
 			utils/ft_malloc \
+			utils/ft_putstr \
 			pipe/fork_loop \
 			pipe/make_pipe \
 
