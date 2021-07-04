@@ -6,14 +6,14 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 14:36:43 by taehokim          #+#    #+#             */
-/*   Updated: 2021/07/04 16:40:51 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/04 20:34:08 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "egginshell.h"
 
 int
-	index_end_export(char *data, int i)
+	get_search_end_idx(char *data, int i)
 {
 	if (data[i] >= '0' && data[i] <= '9')
 		return (i);
@@ -32,7 +32,7 @@ int
 {
 	int		end;
 
-	end = index_end_export(data, start);
+	end = get_search_end_idx(data, start);
 	*search = egg_strndup(data, start, end);
 	return (end);
 }

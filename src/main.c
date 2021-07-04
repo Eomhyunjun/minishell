@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 14:19:09 by heom              #+#    #+#             */
-/*   Updated: 2021/07/04 16:13:12 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/04 20:25:18 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ void
 	first_cmd = all()->cmd_info;
 	while (first_cmd)
 	{
-		close(first_cmd->pipe_fd[0]);
-		close(first_cmd->pipe_fd[1]);
+		if (first_cmd->pipe_fd[0])
+			close(first_cmd->pipe_fd[0]);
+		if (first_cmd->pipe_fd[1])
+			close(first_cmd->pipe_fd[1]);
 		if (first_cmd->input_fd > 2)
 			close(first_cmd->input_fd);
 		if (first_cmd->output_fd > 2)
@@ -40,8 +42,7 @@ void
 	current = all()->cmd_info;
 	while (current)
 	{
-
-		if (waitpid(current->pid, &res, 0) == -1)
+		if (current->pid > 0 && waitpid(current->pid, &res, 0) == -1)
 			safe_exit(1, "waitpid error");
 		print_cmd(current);
 		current = current->next;
@@ -54,32 +55,36 @@ int		main(int argc, char **argv, char **envp)
 	(void)	argv;
 	char	*buf;
 
-	// init(envp);
-	// while ((buf = readline("egg > ")) != 0)
-	// {
-	// 	if (ft_strlen(buf) > 0)
-	// 	{
-	// 		add_history(buf);
-	// 		printf("start hello world!\n");
-	// 		// dprintf(2, "buf: %s\n", buf);
-	// 		parse(buf);
-	// 		make_io();
-	// 		make_pipe();
-	// 		fork_loop();
-	// 		printf("end hello world!\n");
-	// 	}
-	// 	free(buf);
-	// }
 	init(envp);
+	while (1)
+	{
+		buf = readline("egg > ");
+		dprintf(2, "buf: %s\n", buf);
+		if (buf == 0)
+			break;
+		if (ft_strlen(buf) > 0)
+		{
+			safe_free_cmd();
+			add_history(buf);
+			parse(buf);
+			if (!make_io())
+			{
+				make_pipe();
+				fork_loop();
+			}
+		}
+		close_unused();
+		wait_subprocess();
+		free(buf);
+	}
+	// init(envp);
 
-	buf = "< b cat | cat > c";
-	// printf("start hello world!\n");
+	// buf = "< 123d cat";
 	// dprintf(2, "buf: %s\n", buf);
-	parse(buf);
-	make_io();
-	make_pipe();
-	fork_loop();
-	// printf("end hello world!\n");
+	// parse(buf);
+	// make_io();
+	// make_pipe();
+	// fork_loop();
 
 	//have to be removed
 	// t_cmd *cmd;
@@ -103,8 +108,6 @@ int		main(int argc, char **argv, char **envp)
 	// 	}
 	// 	cmd = cmd->next;
 	// }
-	close_unused();
-	wait_subprocess();
 	safe_exit(0, NULL);
 	return (0);
 }

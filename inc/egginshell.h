@@ -43,6 +43,9 @@ void
 free_char_double_ptr(char **pp);
 
 void
+safe_free_cmd(void);
+
+void
 make_rawcmd(char *buf);
 
 void
@@ -87,14 +90,14 @@ interpret_charbox(t_charbox *charbox);
 char
 *interpret_quote_env(char *data);
 
-void
+int
 make_io(void);
 
 int
 make_dollar(char *data, int start, char **replaced);
 
-void
-try_open_for_read(int *fd, char *path);
+int
+try_open(int *fd, char *path, int mode, int permission);
 
 char
 **get_path(void);
@@ -134,8 +137,8 @@ ft_strlen(const char *str);
 char
 **ft_split(char const *s, char c);
 
-unsigned int
-ft_strlcpy(char *dest, char *src, unsigned int size);
+size_t
+ft_strlcpy(char *dst, const char *src, size_t size);
 
 int
 ft_malloc(void *pp, size_t size);

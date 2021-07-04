@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/04 14:15:45 by heom              #+#    #+#             */
-/*   Updated: 2021/07/04 16:48:28 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/04 20:16:32 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void
 	}
 }
 
-void
+int
 	process_open(t_cmd *current, t_charbox *cur_io, t_charbox *cur_theredoc)
 {
 	int	mode;
@@ -72,7 +72,8 @@ void
 	{
 		if (current->input_fd > 2)
 			close(current->input_fd);
-		try_open_for_read(&current->input_fd, cur_io->data);
+		if (try_open(&current->input_fd, cur_io->data, O_RDONLY, 0))
+			return (1);
 		current->last_input = cur_io;
 	}
 	else
@@ -83,12 +84,14 @@ void
 			mode = O_RDWR | O_CREAT | O_TRUNC;
 		if (current->output_fd > 2)
 			close(current->output_fd);
-		current->output_fd = open(cur_io->data, mode, 0644); // 에러 처리 해야 함. 안했음
+		if (try_open(&current->output_fd, cur_io->data, mode, 0644))
+			return (1);
 		current->last_output = cur_io;
 	}
+	return (0);
 }
 
-void
+int
 	process_rd(void)
 {
 	t_cmd		*current;
@@ -102,15 +105,20 @@ void
 		cur_theredoc = current->theredoc;
 		while (cur_io)
 		{
-			process_open(current, cur_io, cur_theredoc);
+			if (process_open(current, cur_io, cur_theredoc))
+				return (1);
 			cur_io = cur_io->next;
 		}
 		current = current->next;
 	}
+	return (0);
 }
 
-void	make_io(void)
+int
+	make_io(void)
 {
 	process_heredoc();
-	process_rd();
+	if (process_rd())
+		return (1);
+	return (0);
 }
