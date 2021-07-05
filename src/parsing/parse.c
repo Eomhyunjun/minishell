@@ -3,17 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 16:10:29 by taehokim          #+#    #+#             */
-/*   Updated: 2021/06/30 16:35:12 by taehokim         ###   ########.fr       */
+/*   Updated: 2021/07/05 16:57:56 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "egginshell.h"
 
-void	parse(char *buf)
+int
+	parse(char *buf)
 {
-	make_rawcmd(buf);
+	if (make_rawcmd(buf))
+		return (1);
 	make_cmd();
+	return (0);
 }

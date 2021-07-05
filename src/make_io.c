@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/04 14:15:45 by heom              #+#    #+#             */
-/*   Updated: 2021/07/04 20:16:32 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/05 16:05:03 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void
 	char		*merge;
 	t_charbox	*tmp_doc;
 
+	tmp_doc = NULL;
 	while (1)
 	{
 		buf = readline("theredoc >");
@@ -47,6 +48,7 @@ void
 	current = all()->cmd_info;
 	while (current)
 	{
+		print_cmd(current);
 		cur_io = current->io;
 		while (cur_io)
 		{

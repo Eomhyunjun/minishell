@@ -6,46 +6,46 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 14:36:43 by taehokim          #+#    #+#             */
-/*   Updated: 2021/07/04 20:34:08 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/05 17:24:53 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "egginshell.h"
 
 int
-	get_search_end_idx(char *data, int i)
+	can_be_env_name(char c)
 {
-	if (data[i] >= '0' && data[i] <= '9')
-		return (i);
-	while ((data[i] >= 'a' && data[i] <= 'z')
-		|| (data[i] >= 'A' && data[i] <= 'Z')
-		|| (data[i] >= '0' && data[i] <= '9')
-		|| (data[i] == '_'))
-	{
-		i++;
-	}
-	return (i - 1);
+	return ((c >= 'a' && c <= 'z')
+		|| (c >= 'A' && c <= 'Z')
+		|| (c >= '0' && c <= '9')
+		|| (c == '_'));
+}
+
+int
+	can_be_first_env_name(char c)
+{
+	return ((c >= 'a' && c <= 'z')
+		|| (c >= 'A' && c <= 'Z')
+		|| (c == '_'));
 }
 
 int
 	create_search(char *data, int start, char **search)
 {
 	int		end;
+	int		i;
 
-	end = get_search_end_idx(data, start);
+	i = start;
+	if (!can_be_first_env_name(data[i]))
+		end = i - 1;
+	else
+	{
+		while (can_be_env_name(data[i]))
+			i++;
+		end = i - 1;
+	}
 	*search = egg_strndup(data, start, end);
 	return (end);
-}
-
-char
-	*create_blank(void)
-{
-	char	*blank;
-
-	if (!ft_malloc(&blank, 1))
-		safe_exit(1, "create blank failed");
-	blank[0] = '\0';
-	return (blank);
 }
 
 char
@@ -78,7 +78,16 @@ int
 	i = 0;
 	end = create_search(data, start, &search);
 	if (!search[0])
-		; // 어떻게 될지 몰라.
+	{
+		free(search);
+		if (data[start] == '?')
+		{
+			// do question mark
+			return (end + 1);
+		}
+		*replaced = create_dollar();
+		return (end);
+	}
 	while (all()->dup_envp[i])
 	{
 		res = replace_dollar(all()->dup_envp[i], search);

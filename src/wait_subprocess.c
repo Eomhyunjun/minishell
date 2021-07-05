@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   wait_subprocess.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/04 13:34:31 by heom              #+#    #+#             */
-/*   Updated: 2021/07/05 17:12:25 by heom             ###   ########.fr       */
+/*   Created: 2021/07/05 15:38:05 by heom              #+#    #+#             */
+/*   Updated: 2021/07/05 15:38:18 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "egginshell.h"
 
 void
-	ft_putstr(int fd, const char *s)
+	wait_subprocess(void)
 {
-	int i;
+	t_cmd	*current;
+	int		res;
 
-	i = ft_strlen(s);
-	write(fd, s, i);
+	current = all()->cmd_info;
+	while (current)
+	{
+		if (current->pid > 0 && waitpid(current->pid, &res, 0) == -1)
+			safe_exit(1, "waitpid error");
+		current = current->next;
+	}
 }

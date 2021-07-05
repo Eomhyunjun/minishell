@@ -21,7 +21,7 @@
 t_all
 *all(void);
 
-void
+int
 parse(char *buf);
 
 void
@@ -45,7 +45,7 @@ free_char_double_ptr(char **pp);
 void
 safe_free_cmd(void);
 
-void
+int
 make_rawcmd(char *buf);
 
 void
@@ -93,6 +93,12 @@ char
 int
 make_io(void);
 
+char
+*create_dollar(void);
+
+char
+*create_blank(void);
+
 int
 make_dollar(char *data, int start, char **replaced);
 
@@ -104,6 +110,9 @@ char
 
 void
 close_unused(void);
+
+void
+wait_subprocess(void);
 
 /*
 ** ----------------   pipe   ----------------------

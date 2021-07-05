@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 14:06:52 by heom              #+#    #+#             */
-/*   Updated: 2021/07/04 20:02:26 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/05 17:19:24 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void
 void
 	do_child(t_cmd *current)
 {
+	char	*msg;
+
 	if (current->last_input == NULL && current->prev != NULL)
 		dup2(current->pipe_fd[0], STDIN_FILENO);
 	else if (current->last_input != NULL && current->last_input->type == RD_I)
@@ -56,9 +58,10 @@ void
 		dup2(current->output_fd, STDOUT_FILENO);
 	close_unused();
 	try_execve_loop(current);
-	ft_putstr(2, "egginshell: ");
-	ft_putstr(2, current->argv->data);
-	ft_putstr(2, ": command not found\n");
+	msg = ft_strjoin("egginshell: ", current->argv->data,
+			": command not found\n");
+	ft_putstr(2, msg);
+	free(msg);
 	safe_exit(1, NULL);
 }
 

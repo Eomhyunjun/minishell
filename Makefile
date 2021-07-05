@@ -6,7 +6,7 @@
 #    By: heom <heom@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/10 12:51:40 by heom              #+#    #+#              #
-#    Updated: 2021/07/04 14:27:03 by heom             ###   ########.fr        #
+#    Updated: 2021/07/05 17:25:42 by heom             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,8 @@ SRCS = \
 			try_open \
 			get_path \
 			make_io \
+			wait_subprocess \
+			close \
 			utils/ft_bzero \
 			utils/ft_strncmp \
 			utils/ft_strlen \
@@ -47,6 +49,7 @@ PARSING = \
 			get_none_pos \
 			interpret_quote_env \
 			dollar \
+			create \
 
 
 OBJS = $(FIL:.c=.o)

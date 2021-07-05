@@ -6,48 +6,15 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 14:19:09 by heom              #+#    #+#             */
-/*   Updated: 2021/07/04 20:25:18 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/05 16:58:13 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include "egginshell.h"
 
-void
-	close_unused(void)
-{
-	t_cmd	*first_cmd;
 
-	first_cmd = all()->cmd_info;
-	while (first_cmd)
-	{
-		if (first_cmd->pipe_fd[0])
-			close(first_cmd->pipe_fd[0]);
-		if (first_cmd->pipe_fd[1])
-			close(first_cmd->pipe_fd[1]);
-		if (first_cmd->input_fd > 2)
-			close(first_cmd->input_fd);
-		if (first_cmd->output_fd > 2)
-			close(first_cmd->output_fd);
-		first_cmd = first_cmd->next;
-	}
-}
 
-void
-	wait_subprocess(void)
-{
-	t_cmd	*current;
-	int		res;
-
-	current = all()->cmd_info;
-	while (current)
-	{
-		if (current->pid > 0 && waitpid(current->pid, &res, 0) == -1)
-			safe_exit(1, "waitpid error");
-		print_cmd(current);
-		current = current->next;
-	}
-}
 
 int		main(int argc, char **argv, char **envp)
 {
@@ -66,8 +33,7 @@ int		main(int argc, char **argv, char **envp)
 		{
 			safe_free_cmd();
 			add_history(buf);
-			parse(buf);
-			if (!make_io())
+			if (!parse(buf) && !make_io())
 			{
 				make_pipe();
 				fork_loop();

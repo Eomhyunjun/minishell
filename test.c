@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:54:30 by heom              #+#    #+#             */
-/*   Updated: 2021/07/04 15:19:31 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/05 15:40:03 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,12 +122,21 @@ void test_primitive(int argc, char **argv, char **envp)
 
 
 	init(envp);
-
-	buf = "echo 123";
-	parse(buf);
-	make_io();
-	make_pipe();
-	fork_loop();
+	buf = "echo << a";
+	if (ft_strlen(buf) > 0)
+	{
+		safe_free_cmd();
+		add_history(buf);
+		parse(buf);
+		if (!make_io())
+		{
+			make_pipe();
+			fork_loop();
+		}
+	}
+	close_unused();
+	wait_subprocess();
+	safe_exit(0, NULL);
 }
 
 int main(int argc, char **argv, char **envp)

@@ -6,21 +6,21 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 13:21:09 by heom              #+#    #+#             */
-/*   Updated: 2021/07/02 15:50:27 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/05 17:28:47 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TYPES_H
 # define TYPES_H
 
-typedef struct	s_charbox
+typedef struct s_charbox
 {
 	char				*data;
 	int					type;
 	struct s_charbox	*next;
 }				t_charbox;
 
-typedef struct	s_oil
+typedef struct s_oil
 {
 	t_charbox	*box;
 	char		*data;
@@ -32,7 +32,7 @@ typedef struct	s_oil
 /*
 ** one command divided by pipelines
 */
-typedef struct	s_cmd
+typedef struct s_cmd
 {
 	char			*rawcmd;
 	t_charbox		*io;
@@ -52,7 +52,7 @@ typedef struct	s_cmd
 ** whole info
 */
 
-typedef struct	s_all
+typedef struct s_all
 {
 	struct s_cmd	*cmd_info;
 	char			**dup_envp;
