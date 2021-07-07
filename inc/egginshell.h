@@ -111,10 +111,14 @@ char
 **get_path(void);
 
 void
+ii_write(void);
+
+void
 close_unused(void);
 
 void
 wait_subprocess(void);
+
 
 /*
 ** ----------------   pipe   ----------------------

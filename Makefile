@@ -6,7 +6,7 @@
 #    By: heom <heom@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/10 12:51:40 by heom              #+#    #+#              #
-#    Updated: 2021/07/05 17:25:42 by heom             ###   ########.fr        #
+#    Updated: 2021/07/07 15:45:23 by heom             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRCS = \
 			try_open \
 			get_path \
 			make_io \
+			ii_write \
 			wait_subprocess \
 			close \
 			utils/ft_bzero \

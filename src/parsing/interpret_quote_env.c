@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 19:30:34 by heom              #+#    #+#             */
-/*   Updated: 2021/07/05 16:09:57 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/07 15:29:34 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ char
 	}
 	chars = egg_strndup(o.data, o.start, o.i - 1);
 	add_charbox(&o.box, chars, 0);
-	// " 열린 채로 끝났을 때 에러 처리 필요함.
 	res = to_chars(o.box, "");
 	free_charbox(o.box);
 	return (res);

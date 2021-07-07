@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/04 14:15:45 by heom              #+#    #+#             */
-/*   Updated: 2021/07/05 16:05:03 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/07 15:37:54 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void
 	tmp_doc = NULL;
 	while (1)
 	{
-		buf = readline("theredoc >");
+		buf = readline("theredoc > ");
 		if (buf == NULL)
 			break ;
 		if (buf[0] != '\0')
@@ -31,7 +31,7 @@ void
 		if (!ft_strcmp(buf, cur_io->data))
 		{
 			merge = to_chars(tmp_doc, "\n");
-			add_charbox(&current->theredoc, merge, -2);
+			add_charbox(&current->theredoc, merge, RD_II);
 			free_charbox(tmp_doc);
 			break ;
 		}

@@ -1,45 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ii_write.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/21 14:19:09 by heom              #+#    #+#             */
-/*   Updated: 2021/07/07 15:43:49 by heom             ###   ########.fr       */
+/*   Created: 2021/07/07 15:43:28 by heom              #+#    #+#             */
+/*   Updated: 2021/07/07 15:44:00 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
 #include "egginshell.h"
 
-int		main(int argc, char **argv, char **envp)
+void	ii_write(void)
 {
-	(void)	argc;
-	(void)	argv;
-	char	*buf;
+	t_cmd		*current;
+	t_charbox	*input;
+	char		*data;
 
-	init(envp);
-	while (1)
+	current = all()->cmd_info;
+	while (current)
 	{
-		buf = readline("egg in ₩^_^₩ ");
-		if (buf == 0)
-			break;
-		if (ft_strlen(buf) > 0)
+		input = current->last_input;
+		if (input && input->type == RD_II)
 		{
-			safe_free_cmd();
-			add_history(buf);
-			if (!parse(buf) && !make_io())
-			{
-				make_pipe();
-				fork_loop();
-				ii_write();
-			}
+			data = ft_strjoin3(input->data, "\n", "");
+			write(current->pipe_fd[1], data, ft_strlen(data));
+			free(data);
 		}
-		close_unused();
-		wait_subprocess();
-		free(buf);
+		current = current->next;
 	}
-	safe_exit(0, NULL);
-	return (0);
 }
