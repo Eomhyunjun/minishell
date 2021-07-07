@@ -5,8 +5,10 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <string.h>
+# include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <errno.h>
 # include "types.h"
 
 # define Q_NONE 0
@@ -135,7 +137,7 @@ int
 ft_strncmp(const char *s1, const char *s2, size_t n);
 
 void
-ft_putstr(int fd, const char *s);
+ft_putstr_plus_newline(int fd, const char *s);
 
 int
 ft_strcmp(const char *s1, const char *s2);
@@ -153,7 +155,10 @@ int
 ft_malloc(void *pp, size_t size);
 
 char
-*ft_strjoin(char const *s1, char const *mid, char const *s2);
+*ft_strjoin3(char const *s1, char const *mid, char const *s2);
+
+char
+*ft_strjoin4(char const *s1, char const *s2, char const *s3, char const *s4);
 
 /*
 ** ----------------  delete  ----------------------

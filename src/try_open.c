@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 19:04:52 by heom              #+#    #+#             */
-/*   Updated: 2021/07/05 17:27:48 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/07 14:24:07 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ int
 		*fd = open(path, mode, permission);
 	if (*fd == -1)
 	{
-		msg = ft_strjoin("egginshell: ", path, ": ");
+		msg = ft_strjoin3("egginshell: ", path, ": ");
 		trash_can = msg;
-		msg = ft_strjoin(msg, strerror(errno), "\n");
+		msg = ft_strjoin3(msg, strerror(errno), "\n");
 		free(trash_can);
-		ft_putstr(2, msg);
+		ft_putstr_plus_newline(2, msg);
 		free(msg);
 		return (1);
 	}

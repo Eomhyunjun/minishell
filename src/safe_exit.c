@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 20:02:09 by heom              #+#    #+#             */
-/*   Updated: 2021/07/07 09:29:02 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/07 14:29:37 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,7 @@ void
 {
 	safe_free_cmd();
 	if (code != 0 && msg && msg[0])
-	{
-		ft_putstr(2, msg);
-		ft_putstr(2, "\n");
-	}
+		ft_putstr_plus_newline(2, msg);
 	exit(code);
 }
 

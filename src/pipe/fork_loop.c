@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 14:06:52 by heom              #+#    #+#             */
-/*   Updated: 2021/07/05 17:19:24 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/07 14:25:02 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,55 @@ int
 	return (1);
 }
 
+int
+	check_dir(t_cmd *current)
+{
+	int		i;
+	char	*data;
+
+	i = 0;
+	data = current->argv->data;
+	while (data[i])
+	{
+		if (data[i] == '/')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 void
-	try_execve_loop(t_cmd *current)
+	try_execve(t_cmd *current)
 {
 	char	*exec_path;
 	char	**new_argv;
+	char	*msg;
 	int		i;
 
-	// todo: 경로가 왔을 경우 해당 경로의 프로그램을 실행해야 함.
 	i = 0;
 	new_argv = to_double_ptr(current->argv);
-	while (all()->path[i])
+	if (check_dir(current))
 	{
-		exec_path = ft_strjoin(all()->path[i], "/", current->argv->data);
+		exec_path = ft_strjoin3(all()->pwd, "/", current->argv->data);
 		execve(exec_path, new_argv, all()->dup_envp);
-		i++;
+		free(exec_path);
+		msg = ft_strjoin4("egginshell: ", new_argv[0], ": ", strerror(errno));
+		ft_putstr_plus_newline(2, msg);
+		free(msg);
+	}
+	else
+	{
+		while (all()->path[i])
+		{
+			exec_path = ft_strjoin3(all()->path[i], "/", current->argv->data);
+			execve(exec_path, new_argv, all()->dup_envp);
+			free(exec_path);
+			i++;
+		}
+		msg = ft_strjoin3("egginshell: ", current->argv->data,
+			": command not found");
+		ft_putstr_plus_newline(2, msg);
+		free(msg);
 	}
 	free_char_double_ptr(new_argv);
 }
@@ -46,8 +80,6 @@ void
 void
 	do_child(t_cmd *current)
 {
-	char	*msg;
-
 	if (current->last_input == NULL && current->prev != NULL)
 		dup2(current->pipe_fd[0], STDIN_FILENO);
 	else if (current->last_input != NULL && current->last_input->type == RD_I)
@@ -57,11 +89,7 @@ void
 	else if (current->last_output != NULL)
 		dup2(current->output_fd, STDOUT_FILENO);
 	close_unused();
-	try_execve_loop(current);
-	msg = ft_strjoin("egginshell: ", current->argv->data,
-			": command not found\n");
-	ft_putstr(2, msg);
-	free(msg);
+	try_execve(current);
 	safe_exit(1, NULL);
 }
 

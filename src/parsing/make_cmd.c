@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 15:22:35 by heom              #+#    #+#             */
-/*   Updated: 2021/07/07 09:54:04 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/07 14:28:48 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int
 			contents = egg_strndup(buf, cmd_start, i - 1);
 			if (is_empty(contents))
 			{
-				ft_putstr(2, "egginshell: syntax error near unexpected token '|'\n");
+				ft_putstr_plus_newline(2, "egginshell: syntax error near unexpected token '|'");
 				return (1);
 			}
 			add_cmd(contents);
@@ -90,13 +90,13 @@ int
 	}
 	if (quote != Q_NONE)
 	{
-		ft_putstr(2, "egginshell: you should close quote\n");
+		ft_putstr_plus_newline(2, "egginshell: you should close quote");
 		return (1);
 	}
 	contents = egg_strndup(buf, cmd_start, i - 1);
 	if (is_empty(contents))
 	{
-		ft_putstr(2, "egginshell: you should write something after '|'\n");
+		ft_putstr_plus_newline(2, "egginshell: you should write something after '|'");
 		return (1);
 	}
 	add_cmd(contents);

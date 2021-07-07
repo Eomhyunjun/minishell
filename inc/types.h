@@ -6,12 +6,14 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 13:21:09 by heom              #+#    #+#             */
-/*   Updated: 2021/07/05 17:28:47 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/07 14:05:07 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TYPES_H
 # define TYPES_H
+
+# include <limits.h>
 
 typedef struct s_charbox
 {
@@ -57,6 +59,7 @@ typedef struct s_all
 	struct s_cmd	*cmd_info;
 	char			**dup_envp;
 	char			**path;
+	char			pwd[PATH_MAX];
 }				t_all;
 
 #endif

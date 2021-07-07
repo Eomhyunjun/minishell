@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 15:50:35 by heom              #+#    #+#             */
-/*   Updated: 2021/07/07 09:59:07 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/07 14:29:18 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ int
 	{
 		free(dup_res);
 		if (rawcmd[*i] == '\0')
-			msg = ft_strjoin("syntax error near unexpected token ", "'newline'", "\n");
+			msg = ft_strjoin3("syntax error near unexpected token ", "'newline'", "");
 		else
 		{
 			dup_res = egg_strndup(rawcmd, *i, *i);
-			msg = ft_strjoin("syntax error near unexpected token '", dup_res, "'\n");
+			msg = ft_strjoin3("syntax error near unexpected token '", dup_res, "'");
 			free(dup_res);
 		}
-		ft_putstr(2, msg);
+		ft_putstr_plus_newline(2, msg);
 		free(msg);
 		return (1);
 	}
