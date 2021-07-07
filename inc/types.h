@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 13:21:09 by heom              #+#    #+#             */
-/*   Updated: 2021/07/07 14:05:07 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/07 15:52:52 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_cmd
 	int				input_fd;
 	int				output_fd;
 	int				pipe_fd[2];
+	int				ii_fd[2];
 	int				pid;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;

@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 14:00:58 by heom              #+#    #+#             */
-/*   Updated: 2021/07/02 14:04:28 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/07 15:56:38 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void
 	current = all()->cmd_info;
 	while (current)
 	{
-		if (pipe(current->pipe_fd))
+		if (pipe(current->pipe_fd) || pipe(current->ii_fd))
 			safe_exit(1, "pipe error!\n");
 		current = current->next;
 	}

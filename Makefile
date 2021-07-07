@@ -6,7 +6,7 @@
 #    By: heom <heom@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/10 12:51:40 by heom              #+#    #+#              #
-#    Updated: 2021/07/07 15:45:23 by heom             ###   ########.fr        #
+#    Updated: 2021/07/07 15:59:54 by heom             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,7 @@ FIL = \
 
 all : $(NAME)
 
-$(OBJS): %.o : %.c
+$(OBJS): %.o : %.c inc/egginshell.h inc/types.h
 	gcc $(CFLAGS) $(INCS) -c -o $@ $<
 
 src/main.o : src/main.c

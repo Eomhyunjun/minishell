@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 14:06:52 by heom              #+#    #+#             */
-/*   Updated: 2021/07/07 15:20:20 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/07 15:56:46 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,7 @@ void
 	else if (current->last_input != NULL && current->last_input->type == RD_I)
 		dup2(current->input_fd, STDIN_FILENO);
 	else if (current->last_input != NULL && current->last_input->type == RD_II)
-	{
-		//cat에 값 넘겨주기 제시안 1) 파이프 새로 파서 연결 2) write어떻게든 해보기
-		dup2(current->pipe_fd[0], STDIN_FILENO);
-		// write(0, "akdjfaskjdf\n", 11);
-	}
+		dup2(current->ii_fd[0], STDIN_FILENO);
 	if (current->last_output == NULL && current->next != NULL)
 		dup2(current->next->pipe_fd[1], STDOUT_FILENO);
 	else if (current->last_output != NULL)
