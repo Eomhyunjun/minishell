@@ -48,10 +48,10 @@ safe_free_cmd(void);
 int
 make_rawcmd(char *buf);
 
-void
+int
 make_cmd(void);
 
-void
+int
 make_cmd_item(t_cmd *current);
 
 int
@@ -73,7 +73,7 @@ int
 argv_try_push(t_cmd *current, int i);
 
 int
-io_try_push(t_cmd *current, int i);
+io_try_push(t_cmd *current, int *i);
 
 void
 add_charbox(t_charbox **container, char *allocated, int type);

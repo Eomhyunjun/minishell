@@ -6,15 +6,12 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 14:19:09 by heom              #+#    #+#             */
-/*   Updated: 2021/07/05 16:58:13 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/07 09:12:31 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include "egginshell.h"
-
-
-
 
 int		main(int argc, char **argv, char **envp)
 {

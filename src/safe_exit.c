@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 20:02:09 by heom              #+#    #+#             */
-/*   Updated: 2021/07/04 20:34:15 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/07 09:29:02 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,13 @@ void
 	exit(code);
 }
 
-void
-	token_error(char token)
-{
-	safe_free_cmd();
-	if (token == '\n')
-		printf("syntax error near unexpected token 'newline'\n");
-	else
-		printf("syntax error near unexpected token '%c'\n", token);
-	exit(1);
-}
+// void
+// 	token_error(char token)
+// {
+// 	safe_free_cmd();
+// 	if (token == '\n')
+// 		printf("syntax error near unexpected token 'newline'\n");
+// 	else
+// 		printf("syntax error near unexpected token '%c'\n", token);
+// 	exit(1);
+// }

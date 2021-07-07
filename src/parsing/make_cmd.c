@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 15:22:35 by heom              #+#    #+#             */
-/*   Updated: 2021/07/05 17:20:28 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/07 09:54:04 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int
 	return (0);
 }
 
-void
+int
 	make_cmd_item(t_cmd *current)
 {
 	int		quote;
@@ -37,13 +37,15 @@ void
 	{
 		if (!is_quote(current->rawcmd[i], &quote))
 		{
-			i = io_try_push(current, i); // only one io exit --> error
+			if (io_try_push(current, &i))
+				return (1);
 			i = argv_try_push(current, i);
 		}
 	}
+	return (0);
 }
 
-void
+int
 	make_cmd(void)
 {
 	t_cmd	*current;
@@ -51,11 +53,13 @@ void
 	current = all()->cmd_info;
 	while (current)
 	{
-		make_cmd_item(current);
+		if (make_cmd_item(current))
+			return (1);
 		interpret_charbox(current->io);
 		interpret_charbox(current->argv);
 		current = current->next;
 	}
+	return (0);
 }
 
 int
