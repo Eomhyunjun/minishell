@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 13:21:09 by heom              #+#    #+#             */
-/*   Updated: 2021/07/07 15:52:52 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/08 20:32:58 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define TYPES_H
 
 # include <limits.h>
+# include <termios.h>
 
 typedef struct s_charbox
 {
@@ -61,6 +62,7 @@ typedef struct s_all
 	char			**dup_envp;
 	char			**path;
 	char			pwd[PATH_MAX];
+	struct termios	oldtio;
 }				t_all;
 
 #endif

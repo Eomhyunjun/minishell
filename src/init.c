@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 15:21:31 by heom              #+#    #+#             */
-/*   Updated: 2021/07/08 19:48:03 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/08 20:34:14 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int custom_rl_getc_fuction(FILE *stream)
 		{
 			rl_on_new_line();
 			write(1, "exit\n", 5);
-			exit(0);
+			safe_exit(0, NULL);
 		}
 
 		if (result == sizeof(unsigned char))
@@ -57,6 +57,7 @@ void	init(char **envp)
 {
 	all()->dup_envp = envp;
 	all()->path = get_path();
+	tcgetattr(0, &all()->oldtio);
 	getcwd(all()->pwd, PATH_MAX);
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, do_nothing);
