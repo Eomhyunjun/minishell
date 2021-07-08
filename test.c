@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:54:30 by heom              #+#    #+#             */
-/*   Updated: 2021/07/07 14:13:26 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/08 14:15:26 by taehokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "egginshell.h"
+#include "inc/egginshell.h"
 #include <termios.h>
 #include <curses.h>
 #include <term.h>
@@ -141,10 +141,66 @@ void set_input_mode(void)
 	tcsetattr(STDIN_FILENO, TCSAFLUSH, &tattr);
 }
 
+void do_nothing(int signo)
+{
+	(void)signo;
+}
 void test_sig_handler(int signo)
 {
 	(void)signo;
-	printf("\nI Received SIGINT(%d), %s, %d, %p\n", SIGINT, rl_line_buffer, rl_point, rl_pre_input_hook);
+	// printf("\nI Received (%d), %s(%lu), %d, %p\n", signo, rl_line_buffer, strlen(rl_line_buffer),  rl_point, rl_pre_input_hook);
+	// rl_done = 1;
+	write(1, "\n", 1);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+}
+
+int test_rl_getc_function(FILE *stream)
+{
+	int result;
+	unsigned char c;
+	(void)(stream);
+	// printf("stream: %p\n", rl_instream);
+
+	// int fd = fileno(rl_instream);
+	while (1)
+	{
+		result = read(rl_instream->_file, &c, sizeof(unsigned char));
+		// printf("(readed: %c, %d, %d)\n", c, c, rl_point);
+		if (c == 4)
+		{
+			rl_on_new_line();
+			write(1, "exit\n", 5);
+			exit(0);
+		}
+
+		if (result == sizeof(unsigned char))
+		{
+			// rl_redisplay();
+			// printf("(readed: %s)\n", rl_line_buffer);
+			// if (c == 'a')
+			// {
+			// 	rl_done = 1;
+			// 	// rl_replace_line("", 0);
+			// 	// rl_on_new_line();
+			// 	// rl_redisplay();
+			// }
+
+			return (c);
+		}
+		if (result == 0)
+		{
+			printf("result is 0\n");
+			return (EOF);
+		}
+	}
+}
+
+int test_rl_signal_event_hook()
+{
+	// printf("signal! %d\n", rl_catch_signals);
+	return 0;
 }
 
 void test_signal_while_readline(int argc, char **argv)
@@ -154,8 +210,14 @@ void test_signal_while_readline(int argc, char **argv)
 
 	// set_input_mode();
 	char *buf;
-	signal(SIGINT, (void *)test_sig_handler);
-// rl_dispatchingß
+	signal(SIGINT, test_sig_handler);
+	signal(SIGQUIT, do_nothing);
+	printf("%p\n", rl_getc_function);
+	rl_getc_function = test_rl_getc_function;
+	// rl_signal_event_hook = test_rl_signal_event_hook;
+	// rl_redisplay();
+	// pause();
+	rl_catch_signals = 0;
 	while ((buf = readline("egg > ")) != 0)
 	{
 		if (strlen(buf) > 0)
@@ -164,6 +226,8 @@ void test_signal_while_readline(int argc, char **argv)
 		}
 
 		printf("[%s]\n", buf);
+		if (strlen(buf) == 4 && buf[0] == 'e' && buf[1] == 'x' && buf[2] == 'i' && buf[3] == 't')
+			exit(0);
 
 		// // readline malloc's a new buffer every time.
 		free(buf);

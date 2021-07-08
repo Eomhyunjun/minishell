@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: heom <heom@student.42.fr>                  +#+  +:+       +#+         #
+#    By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/10 12:51:40 by heom              #+#    #+#              #
-#    Updated: 2021/07/07 15:59:54 by heom             ###   ########.fr        #
+#    Updated: 2021/07/08 13:41:07 by taehokim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ PARSING = \
 
 OBJS = $(FIL:.c=.o)
 INCS = -I./inc
-LIBS =  -lreadline -ltermcap
+LIBS =  -L./lib -lreadline -ltermcap -lhistory
 
 # $(addsuffix .c, $(addprefix src/, $(MAIN)))
 FIL = \
