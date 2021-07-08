@@ -54,6 +54,9 @@ int
 make_cmd(void);
 
 int
+is_empty(char *content);
+
+int
 make_cmd_item(t_cmd *current);
 
 int

@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 14:19:09 by heom              #+#    #+#             */
-/*   Updated: 2021/07/08 19:23:06 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/08 19:44:06 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,8 @@ int		main(int argc, char **argv, char **envp)
 		buf = readline("egg in ₩^_^₩ ");
 		if (buf == 0)
 			break;
-		if (ft_strlen(buf) > 0)
+		if (ft_strlen(buf) > 0 && !is_empty(buf))
 		{
-			safe_free_cmd();
 			add_history(buf);
 			if (!parse(buf) && !make_io())
 			{
