@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/04 14:25:06 by heom              #+#    #+#             */
-/*   Updated: 2021/07/05 15:35:29 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/08 19:15:13 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void
 void
 	print_cmd(t_cmd *cmd)
 {
+	if (!cmd)
+		return ;
 	dprintf(2, "-------------------\n");
 	dprintf(2, "%-15s: %s\n", "rawcmd", cmd->rawcmd);
 	print_charbox("io", cmd->io);

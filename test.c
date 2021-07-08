@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:54:30 by heom              #+#    #+#             */
-/*   Updated: 2021/07/08 14:15:26 by taehokim         ###   ########.fr       */
+/*   Updated: 2021/07/08 19:18:49 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ void do_nothing(int signo)
 {
 	(void)signo;
 }
-void test_sig_handler(int signo)
+void sigint_handler(int signo)
 {
 	(void)signo;
 	// printf("\nI Received (%d), %s(%lu), %d, %p\n", signo, rl_line_buffer, strlen(rl_line_buffer),  rl_point, rl_pre_input_hook);
@@ -156,7 +156,7 @@ void test_sig_handler(int signo)
 	rl_redisplay();
 }
 
-int test_rl_getc_function(FILE *stream)
+int custom_rl_getc_fuction(FILE *stream)
 {
 	int result;
 	unsigned char c;
@@ -167,7 +167,7 @@ int test_rl_getc_function(FILE *stream)
 	while (1)
 	{
 		result = read(rl_instream->_file, &c, sizeof(unsigned char));
-		// printf("(readed: %c, %d, %d)\n", c, c, rl_point);
+		// printf("(readed: %c, %d)\n", c, c);
 		if (c == 4)
 		{
 			rl_on_new_line();
@@ -210,10 +210,10 @@ void test_signal_while_readline(int argc, char **argv)
 
 	// set_input_mode();
 	char *buf;
-	signal(SIGINT, test_sig_handler);
+	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, do_nothing);
-	printf("%p\n", rl_getc_function);
-	rl_getc_function = test_rl_getc_function;
+	// printf("%p\n", rl_getc_function);
+	rl_getc_function = custom_rl_getc_fuction;
 	// rl_signal_event_hook = test_rl_signal_event_hook;
 	// rl_redisplay();
 	// pause();
