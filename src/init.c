@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 15:21:31 by heom              #+#    #+#             */
-/*   Updated: 2021/07/08 20:34:14 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/09 16:23:27 by taehokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,13 @@ int custom_rl_getc_fuction(FILE *stream)
 void sigint_handler(int signo)
 {
 	(void)signo;
-	write(1, "\n", 1);
-	rl_replace_line("", 0);
-	rl_on_new_line();
 	if (!all()->cmd_info)
+	{
+		write(1, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
 		rl_redisplay();
+	}
 }
 
 void do_nothing(int signo)
