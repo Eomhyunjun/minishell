@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 13:21:09 by heom              #+#    #+#             */
-/*   Updated: 2021/07/08 20:32:58 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/12 14:15:42 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,14 @@ typedef struct s_oil
 	int			start;
 	int			i;
 }				t_oil;
+
+// typedef struct s_env
+// {
+// 	char			*name;
+// 	char			*value;
+// 	char			*is_null;
+// 	struct s_env	*next;
+// }				t_env;
 
 /*
 ** one command divided by pipelines
@@ -58,11 +66,11 @@ typedef struct s_cmd
 
 typedef struct s_all
 {
-	struct s_cmd	*cmd_info;
-	char			**dup_envp;
-	char			**path;
-	char			pwd[PATH_MAX];
-	struct termios	oldtio;
+	struct s_cmd		*cmd_info;
+	struct s_charbox	*egg_envp;
+	char				**path;
+	char				pwd[PATH_MAX];
+	struct termios		oldtio;
 }				t_all;
 
 #endif

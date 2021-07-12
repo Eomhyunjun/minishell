@@ -57,7 +57,14 @@ void do_nothing(int signo)
 
 void	init(char **envp)
 {
-	all()->dup_envp = envp;
+	int i;
+
+	i = 0;
+	while (envp[i])
+	{
+		add_charbox(&all()->egg_envp, egg_strdup(envp[i]), 0);
+		i++;
+	}
 	all()->path = get_path();
 	tcgetattr(0, &all()->oldtio);
 	getcwd(all()->pwd, PATH_MAX);

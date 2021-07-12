@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:54:30 by heom              #+#    #+#             */
-/*   Updated: 2021/07/08 19:18:49 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/12 15:59:17 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,61 +141,61 @@ void set_input_mode(void)
 	tcsetattr(STDIN_FILENO, TCSAFLUSH, &tattr);
 }
 
-void do_nothing(int signo)
-{
-	(void)signo;
-}
-void sigint_handler(int signo)
-{
-	(void)signo;
-	// printf("\nI Received (%d), %s(%lu), %d, %p\n", signo, rl_line_buffer, strlen(rl_line_buffer),  rl_point, rl_pre_input_hook);
-	// rl_done = 1;
-	write(1, "\n", 1);
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
-}
+// void do_nothing(int signo)
+// {
+// 	(void)signo;
+// }
+// void sigint_handler(int signo)
+// {
+// 	(void)signo;
+// 	// printf("\nI Received (%d), %s(%lu), %d, %p\n", signo, rl_line_buffer, strlen(rl_line_buffer),  rl_point, rl_pre_input_hook);
+// 	// rl_done = 1;
+// 	write(1, "\n", 1);
+// 	rl_replace_line("", 0);
+// 	rl_on_new_line();
+// 	rl_redisplay();
+// }
 
-int custom_rl_getc_fuction(FILE *stream)
-{
-	int result;
-	unsigned char c;
-	(void)(stream);
-	// printf("stream: %p\n", rl_instream);
+// int custom_rl_getc_fuction(FILE *stream)
+// {
+// 	int result;
+// 	unsigned char c;
+// 	(void)(stream);
+// 	// printf("stream: %p\n", rl_instream);
 
-	// int fd = fileno(rl_instream);
-	while (1)
-	{
-		result = read(rl_instream->_file, &c, sizeof(unsigned char));
-		// printf("(readed: %c, %d)\n", c, c);
-		if (c == 4)
-		{
-			rl_on_new_line();
-			write(1, "exit\n", 5);
-			exit(0);
-		}
+// 	// int fd = fileno(rl_instream);
+// 	while (1)
+// 	{
+// 		result = read(rl_instream->_file, &c, sizeof(unsigned char));
+// 		// printf("(readed: %c, %d)\n", c, c);
+// 		if (c == 4)
+// 		{
+// 			rl_on_new_line();
+// 			write(1, "exit\n", 5);
+// 			exit(0);
+// 		}
 
-		if (result == sizeof(unsigned char))
-		{
-			// rl_redisplay();
-			// printf("(readed: %s)\n", rl_line_buffer);
-			// if (c == 'a')
-			// {
-			// 	rl_done = 1;
-			// 	// rl_replace_line("", 0);
-			// 	// rl_on_new_line();
-			// 	// rl_redisplay();
-			// }
+// 		if (result == sizeof(unsigned char))
+// 		{
+// 			// rl_redisplay();
+// 			// printf("(readed: %s)\n", rl_line_buffer);
+// 			// if (c == 'a')
+// 			// {
+// 			// 	rl_done = 1;
+// 			// 	// rl_replace_line("", 0);
+// 			// 	// rl_on_new_line();
+// 			// 	// rl_redisplay();
+// 			// }
 
-			return (c);
-		}
-		if (result == 0)
-		{
-			printf("result is 0\n");
-			return (EOF);
-		}
-	}
-}
+// 			return (c);
+// 		}
+// 		if (result == 0)
+// 		{
+// 			printf("result is 0\n");
+// 			return (EOF);
+// 		}
+// 	}
+// }
 
 int test_rl_signal_event_hook()
 {
@@ -210,10 +210,10 @@ void test_signal_while_readline(int argc, char **argv)
 
 	// set_input_mode();
 	char *buf;
-	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, do_nothing);
+	// signal(SIGINT, sigint_handler);
+	// signal(SIGQUIT, do_nothing);
 	// printf("%p\n", rl_getc_function);
-	rl_getc_function = custom_rl_getc_fuction;
+	// rl_getc_function = custom_rl_getc_fuction;
 	// rl_signal_event_hook = test_rl_signal_event_hook;
 	// rl_redisplay();
 	// pause();
@@ -296,6 +296,40 @@ void test_execve(int argc, char **argv, char **envp)
 	printf("res: %d, %s, %d\n", res, strerror(errno), errno);
 }
 
+void test_validate_export()
+{
+	char *name;
+	char *value;
+
+	name = NULL;
+	value = NULL;
+	printf("a %d name:%s, value:%s\n", validate_export("a", &name, &value), name, value);
+	name = NULL;
+	value = NULL;
+	printf("a= %d name:%s, value:%s\n", validate_export("a=", &name, &value), name, value);
+	name = NULL;
+	value = NULL;
+	printf("= %d name:%s, value:%s\n", validate_export("=", &name, &value), name, value);
+	name = NULL;
+	value = NULL;
+	printf("=adf %d name:%s, value:%s\n", validate_export("=adf", &name, &value), name, value);
+	name = NULL;
+	value = NULL;
+	printf("123=a %d name:%s, value:%s\n", validate_export("123=a", &name, &value), name, value);
+	name = NULL;
+	value = NULL;
+	printf("abc+=123 %d name:%s, value:%s\n", validate_export("abc+=123", &name, &value), name, value);
+	name = NULL;
+	value = NULL;
+	printf("abc=123 %d name:%s, value:%s\n", validate_export("abc=123", &name, &value), name, value);
+	name = NULL;
+	value = NULL;
+	printf("abc%%=123 %d name:%s, value:%s\n", validate_export("abc%=123", &name, &value), name, value);
+	name = NULL;
+	value = NULL;
+	printf("a%%bc=123 %d name:%s, value:%s\n", validate_export("a%bc=123", &name, &value), name, value);
+}
+
 int main(int argc, char **argv, char **envp)
 {
 	(void)argc;
@@ -311,7 +345,8 @@ int main(int argc, char **argv, char **envp)
 	// test_interpret_quote_env_item();
 	// test_primitive(argc, argv, envp);
 	// test_execve(argc, argv, envp);
-	test_signal_while_readline(argc, argv);
+	// test_signal_while_readline(argc, argv);
+	test_validate_export();
 
 	return (0);
 }

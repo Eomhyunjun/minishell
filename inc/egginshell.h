@@ -20,6 +20,14 @@
 # define RD_O 2
 # define RD_OO 3
 
+# define EGG_ENV 1
+# define EGG_EXPORT 2
+# define EGG_UNSET 3
+# define EGG_ECHO 4
+# define EGG_CD 5
+# define EGG_EXIT 6
+# define EGG_PWD 7
+
 t_all
 *all(void);
 
@@ -86,6 +94,9 @@ add_charbox(t_charbox **container, char *allocated, int type);
 char
 *to_chars(t_charbox *charbox, char *div);
 
+int
+charbox_len(t_charbox *charbox);
+
 char
 **to_double_ptr(t_charbox *charbox);
 
@@ -97,6 +108,12 @@ char
 
 int
 make_io(void);
+
+int
+can_be_env_name(char c);
+
+int
+can_be_first_env_name(char c);
 
 char
 *create_dollar(void);
@@ -122,6 +139,17 @@ close_unused(void);
 void
 wait_subprocess(void);
 
+int
+egg_export(t_cmd *cmd);
+
+int
+validate_export(char *data, char **name, char **value);
+
+void
+print_export_error(char *data);
+
+void
+print_charbox(char *charbox_name, t_charbox *charbox);
 
 /*
 ** ----------------   pipe   ----------------------

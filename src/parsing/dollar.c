@@ -70,12 +70,11 @@ char
 int
 	make_dollar(char *data, int start, char **replaced)
 {
-	char	*res;
-	char	*search;
-	int		i;
-	int		end;
+	char		*res;
+	char		*search;
+	int			end;
+	t_charbox	*current;
 
-	i = 0;
 	end = create_search(data, start, &search);
 	if (!search[0])
 	{
@@ -88,9 +87,10 @@ int
 		*replaced = create_dollar();
 		return (end);
 	}
-	while (all()->dup_envp[i])
+	current = all()->egg_envp;
+	while (current)
 	{
-		res = replace_dollar(all()->dup_envp[i], search);
+		res = replace_dollar(current->data, search);
 		if (res[0] != '\0')
 		{
 			*replaced = res;
@@ -98,7 +98,7 @@ int
 			return (end);
 		}
 		free(res);
-		i++;
+		current = current->next;
 	}
 	*replaced = create_blank();
 	free(search);

@@ -30,6 +30,7 @@ SRCS = \
 			ii_write \
 			wait_subprocess \
 			close \
+			export \
 			utils/ft_bzero \
 			utils/ft_strncmp \
 			utils/ft_strlen \

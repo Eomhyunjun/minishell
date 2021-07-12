@@ -15,18 +15,18 @@
 char
 	**get_path(void)
 {
-	int		i;
-	char	*s;
+	char		*s;
+	t_charbox	*current;
 
-	i = 0;
-	while (all()->dup_envp[i])
+	current = all()->egg_envp;
+	while (current)
 	{
-		s = all()->dup_envp[i];
+		s = current->data;
 		if (s[0] == 'P' && s[1] == 'A'
 			&& s[2] == 'T' && s[3] == 'H'
 			&& s[4] == '=')
 			return (ft_split(&s[5], ':'));
-		i++;
+		current = current->next;
 	}
 	return (NULL);
 }

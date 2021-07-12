@@ -3,25 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   fork_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 14:06:52 by heom              #+#    #+#             */
-/*   Updated: 2021/07/08 19:47:51 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/12 16:21:04 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "egginshell.h"
 
 int
-	check_cmd(char *cmd)
+	check_builtin_cmd(t_cmd *current)
 {
-	while (*cmd)
-	{
-		if (*cmd == '/')
-			return (0);
-		cmd++;
-	}
-	return (1);
+
+	if (ft_strcmp(current->argv->data, "env") == 0)
+		return (EGG_ENV);
+	if (ft_strcmp(current->argv->data, "export") == 0)
+		return (EGG_EXPORT);
+	if (ft_strcmp(current->argv->data, "unset") == 0)
+		return (EGG_UNSET);
+	if (ft_strcmp(current->argv->data, "echo") == 0)
+		return (EGG_ECHO);
+	if (ft_strcmp(current->argv->data, "cd") == 0)
+		return (EGG_CD);
+	if (ft_strcmp(current->argv->data, "exit") == 0)
+		return (EGG_EXIT);
+	if (ft_strcmp(current->argv->data, "pwd") == 0)
+		return (EGG_PWD);
+	return (0);
 }
 
 int
@@ -41,31 +50,51 @@ int
 	return (0);
 }
 
+int
+	exec_builtin_cmd(t_cmd *current)
+{
+	int	type;
+
+	type = check_builtin_cmd(current);
+	if (type == EGG_EXPORT)
+		return (egg_export(current));
+	// else
+	return (type);
+}
+
 void
 	try_execve(t_cmd *current)
 {
-	char	*exec_path;
-	char	**new_argv;
-	char	*msg;
-	int		i;
+	char		*exec_path;
+	char		**argv_matrix;
+	char		**envp_matrix;
+	char		*msg;
+	int			i;
 
 	i = 0;
-	new_argv = to_double_ptr(current->argv);
+	argv_matrix = to_double_ptr(current->argv);
+	envp_matrix = to_double_ptr(all()->egg_envp);
 	if (check_dir(current))
 	{
 		exec_path = ft_strjoin3(all()->pwd, "/", current->argv->data);
-		execve(exec_path, new_argv, all()->dup_envp);
+		execve(exec_path, argv_matrix, envp_matrix);
 		free(exec_path);
-		msg = ft_strjoin4("egginshell: ", new_argv[0], ": ", strerror(errno));
+		msg = ft_strjoin4("egginshell: ", argv_matrix[0], ": ", strerror(errno));
 		ft_putstr_plus_newline(2, msg);
 		free(msg);
+	}
+	// export, env, cd, echo, exit, pwd, unset
+	else if (check_builtin_cmd(current))
+	{
+		exit(exec_builtin_cmd(current));
 	}
 	else
 	{
 		while (all()->path[i])
 		{
+
 			exec_path = ft_strjoin3(all()->path[i], "/", current->argv->data);
-			execve(exec_path, new_argv, all()->dup_envp);
+			execve(exec_path, argv_matrix, envp_matrix);
 			free(exec_path);
 			i++;
 		}
@@ -74,7 +103,7 @@ void
 		ft_putstr_plus_newline(2, msg);
 		free(msg);
 	}
-	free_char_double_ptr(new_argv);
+	free_char_double_ptr(argv_matrix);
 }
 
 void
