@@ -6,7 +6,7 @@
 #    By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/10 12:51:40 by heom              #+#    #+#              #
-#    Updated: 2021/07/15 16:25:00 by heom             ###   ########.fr        #
+#    Updated: 2021/07/15 19:43:27 by heom             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,8 +30,10 @@ SRCS = \
 			ii_write \
 			wait_subprocess \
 			close \
-			export \
 			envp \
+			process_env_pipe \
+			builtin_cmd/export \
+			builtin_cmd/unset \
 			utils/ft_bzero \
 			utils/ft_strncmp \
 			utils/ft_strlen \

@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 13:21:09 by heom              #+#    #+#             */
-/*   Updated: 2021/07/15 14:53:59 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/15 18:43:27 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct s_charbox
 	char				*data;
 	int					type;
 	struct s_charbox	*next;
+	struct s_charbox	*prev;
 }				t_charbox;
 
 typedef struct s_oil

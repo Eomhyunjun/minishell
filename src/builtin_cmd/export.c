@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 10:49:52 by taehokim          #+#    #+#             */
-/*   Updated: 2021/07/15 16:23:25 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/15 20:16:01 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,33 +52,33 @@ int
 	return (0);
 }
 
-int
-	send_env_code(char type, char *name, char *value)
+void
+	export_display(void)
 {
-	char	*ret;
-	int		i;
-	int		j;
-	int		len;
+	t_charbox	*current;
+	char		*print;
+	char		*name;
+	char		*value;
+	char		*tmp;
 
-	len = ft_strlen(name) + ft_strlen(value) + 4;
-	if (!ft_malloc(&ret, len))
-		return (1);
-	ret[0] = type;
-	ret[1] = '\0';
-	i = 0;
-	j = 2;
-	while (name[i])
-		ret[j++] = name[i++];
-	ret[j++] = '\0';
-	if (value)
+	current = all()->egg_envp;
+	print_charbox("envp", all()->egg_envp);
+	while (current)
 	{
-		i = 0;
-		while (value[i])
-			ret[j++] = value[i++];
-		ret[j] = '\0';
+		validate_export(current->data, &name, &value);
+		print = ft_strjoin3("declare -x ", "", name);
+		if (value)
+		{
+			tmp = print;
+			print = ft_strjoin4(print, "=\"", value, "\"");
+			free(tmp);
+			free(value);
+		}
+		ft_putstr_plus_newline(1, print);
+		free(print);
+		free(name);
+		current = current->next;
 	}
-	write(all()->env_pipe[1], ret, len);
-	return (0);
 }
 
 int
@@ -103,26 +103,23 @@ int
 			else
 			{
 				env = find_envp(name);
-				if (env && value)
+				if (!value)
+					mem_ret = send_env_code(ENV_NEW_NULL, name, NULL);
+				else if (env && value)
 					mem_ret = send_env_code(ENV_EDIT, name, value);
 				else if (!env)
 					mem_ret = send_env_code(ENV_NEW, name, value);
 			}
+			if (name)
+				free(name);
+			if (value)
+				free(value);
 			if (mem_ret == 1)
-			{
-				//메모리 에러 출력
-				return (1);
-			}
+				safe_exit(2, "export memory error");
 			arg = arg->next;
 		}
 	}
 	else
-	{
-		// 있던 거 출력
-	}
-	// free(name);
-	// if
-	// free(value);
-	print_charbox("envp", all()->egg_envp);
+		export_display();
 	return (ret);
 }

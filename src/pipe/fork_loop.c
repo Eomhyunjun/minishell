@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 14:06:52 by heom              #+#    #+#             */
-/*   Updated: 2021/07/15 15:47:40 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/15 20:00:14 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int
 	type = check_builtin_cmd(current);
 	if (type == EGG_EXPORT)
 		return (egg_export(current));
+	if (type == EGG_UNSET)
+		return (egg_unset(current));
 	// else
 	close(all()->env_pipe[0]);
 	close(all()->env_pipe[1]);
@@ -74,8 +76,8 @@ void
 	int			i;
 
 	i = 0;
-	argv_matrix = to_double_ptr(current->argv);
-	envp_matrix = to_double_ptr(all()->egg_envp);
+	argv_matrix = to_double_ptr(current->argv, NO_EXCLUDE);
+	envp_matrix = to_double_ptr(all()->egg_envp, ENVTYPE_NULL);
 	if (check_dir(current))
 	{
 		exec_path = ft_strjoin3(all()->pwd, "/", current->argv->data);

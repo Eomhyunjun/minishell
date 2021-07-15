@@ -30,7 +30,13 @@
 
 # define ENV_EDIT 'e'
 # define ENV_NEW 'n'
+# define ENV_NEW_NULL 'b'
 # define ENV_UNSET 'u'
+
+# define ENVTYPE_STR 0
+# define ENVTYPE_NULL 1
+
+# define NO_EXCLUDE -2147483648
 
 t_all
 *all(void);
@@ -102,7 +108,7 @@ int
 charbox_len(t_charbox *charbox);
 
 char
-**to_double_ptr(t_charbox *charbox);
+**to_double_ptr(t_charbox *charbox, int type_exclude);
 
 void
 interpret_charbox(t_charbox *charbox);
@@ -147,7 +153,13 @@ int
 egg_export(t_cmd *cmd);
 
 int
+egg_unset(t_cmd *cmd);
+
+int
 validate_export(char *data, char **name, char **value);
+
+void
+process_env_pipe(void);
 
 t_charbox
 *find_envp(char *name);
@@ -157,6 +169,12 @@ add_new_envp(char *name, char *value);
 
 int
 edit_envp(char *name, char *value);
+
+int
+unset_envp(char *name);
+
+int
+send_env_code(char type, char *name, char *value);
 
 void
 print_export_error(char *data);

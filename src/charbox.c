@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   charbox.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 18:43:48 by heom              #+#    #+#             */
-/*   Updated: 2021/07/04 16:49:59 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/15 20:01:45 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int
 }
 
 char
-	**to_double_ptr(t_charbox *charbox)
+	**to_double_ptr(t_charbox *charbox, int type_exclude)
 {
 	t_charbox	*current;
 	int			len;
@@ -91,16 +91,19 @@ char
 	len = charbox_len(charbox);
 	if (!ft_malloc(&ret, sizeof(char *) * (len + 1)))
 		safe_exit(1, "to_double_ptr malloc failed");
-	ret[len] = 0;
 	current = charbox;
 	i = 0;
 	while (current)
 	{
-		pushing = egg_strdup(current->data);
-		ret[i] = pushing;
-		i++;
+		if (current->type != type_exclude)
+		{
+			pushing = egg_strdup(current->data);
+			ret[i] = pushing;
+			i++;
+		}
 		current = current->next;
 	}
+	ret[i] = NULL;
 	return (ret);
 }
 
@@ -124,4 +127,5 @@ void
 	while (last_box->next)
 		last_box = last_box->next;
 	last_box->next = new_box;
+	new_box->prev = last_box;
 }

@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:54:30 by heom              #+#    #+#             */
-/*   Updated: 2021/07/12 15:59:17 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/15 20:00:25 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,7 +256,7 @@ void test_to_double_ptr()
 	add_charbox(&box, egg_strdup("he"), 0);
 	add_charbox(&box, egg_strdup("hu"), 0);
 
-	char **box2 = to_double_ptr(box);
+	char **box2 = to_double_ptr(box, NO_EXCLUDE);
 	int i = 0;
 	while (box2[i])
 	{
