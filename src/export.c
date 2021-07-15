@@ -6,54 +6,11 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 10:49:52 by taehokim          #+#    #+#             */
-/*   Updated: 2021/07/12 19:22:04 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/15 16:23:25 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "egginshell.h"
-
-t_charbox
-	*find_envp(char *name)
-{
-	t_charbox	*current;
-	int			len;
-
-	len = ft_strlen(name);
-	current = all()->egg_envp;
-	while (current)
-	{
-		if (ft_strncmp(name, current->data, len)
-			&& (current->data[len] == '=' || current->data[len] == '\0'))
-			return (current);
-		current = current->next;
-	}
-	return (NULL);
-}
-
-int
-	edit_envp(t_charbox *arg, char *name, char *value)
-{
-	free(arg->data);
-	arg->data = ft_strjoin3(name, "=", value);
-	if (!arg->data)
-		return (1);
-	return (0);
-}
-
-int
-	add_new_envp(char *name, char *value)
-{
-	char	*data;
-
-	if (value)
-		data = ft_strjoin3(name, "=", value);
-	else
-		data = egg_strdup(name);
-	if (data == NULL)
-		return (1);
-	add_charbox(&all()->egg_envp, data, 0);
-	return (0);
-}
 
 void
 	print_export_error(char *data)
@@ -96,6 +53,35 @@ int
 }
 
 int
+	send_env_code(char type, char *name, char *value)
+{
+	char	*ret;
+	int		i;
+	int		j;
+	int		len;
+
+	len = ft_strlen(name) + ft_strlen(value) + 4;
+	if (!ft_malloc(&ret, len))
+		return (1);
+	ret[0] = type;
+	ret[1] = '\0';
+	i = 0;
+	j = 2;
+	while (name[i])
+		ret[j++] = name[i++];
+	ret[j++] = '\0';
+	if (value)
+	{
+		i = 0;
+		while (value[i])
+			ret[j++] = value[i++];
+		ret[j] = '\0';
+	}
+	write(all()->env_pipe[1], ret, len);
+	return (0);
+}
+
+int
 	egg_export(t_cmd *cmd)
 {
 	t_charbox	*arg;
@@ -118,9 +104,9 @@ int
 			{
 				env = find_envp(name);
 				if (env && value)
-					mem_ret = edit_envp(env, name, value);
+					mem_ret = send_env_code(ENV_EDIT, name, value);
 				else if (!env)
-					mem_ret = add_new_envp(name, value);
+					mem_ret = send_env_code(ENV_NEW, name, value);
 			}
 			if (mem_ret == 1)
 			{
@@ -134,6 +120,9 @@ int
 	{
 		// 있던 거 출력
 	}
+	// free(name);
+	// if
+	// free(value);
 	print_charbox("envp", all()->egg_envp);
 	return (ret);
 }

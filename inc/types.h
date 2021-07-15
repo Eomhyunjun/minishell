@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 13:21:09 by heom              #+#    #+#             */
-/*   Updated: 2021/07/12 14:15:42 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/15 14:53:59 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,6 @@ typedef struct s_oil
 	int			start;
 	int			i;
 }				t_oil;
-
-// typedef struct s_env
-// {
-// 	char			*name;
-// 	char			*value;
-// 	char			*is_null;
-// 	struct s_env	*next;
-// }				t_env;
 
 /*
 ** one command divided by pipelines
@@ -70,6 +62,7 @@ typedef struct s_all
 	struct s_charbox	*egg_envp;
 	char				**path;
 	char				pwd[PATH_MAX];
+	int					env_pipe[2];
 	struct termios		oldtio;
 }				t_all;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 14:00:58 by heom              #+#    #+#             */
-/*   Updated: 2021/07/08 19:46:38 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/15 14:55:04 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,6 @@ void
 			safe_exit(1, "pipe error!\n");
 		current = current->next;
 	}
+	if (pipe(all()->env_pipe))
+		safe_exit(1, "env_pipe error!\n");
 }

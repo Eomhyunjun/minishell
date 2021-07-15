@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 14:06:52 by heom              #+#    #+#             */
-/*   Updated: 2021/07/12 16:21:04 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/15 15:47:40 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int
 	if (type == EGG_EXPORT)
 		return (egg_export(current));
 	// else
+	close(all()->env_pipe[0]);
+	close(all()->env_pipe[1]);
 	return (type);
 }
 

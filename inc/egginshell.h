@@ -28,6 +28,10 @@
 # define EGG_EXIT 6
 # define EGG_PWD 7
 
+# define ENV_EDIT 'e'
+# define ENV_NEW 'n'
+# define ENV_UNSET 'u'
+
 t_all
 *all(void);
 
@@ -144,6 +148,15 @@ egg_export(t_cmd *cmd);
 
 int
 validate_export(char *data, char **name, char **value);
+
+t_charbox
+*find_envp(char *name);
+
+int
+add_new_envp(char *name, char *value);
+
+int
+edit_envp(char *name, char *value);
 
 void
 print_export_error(char *data);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/10 12:51:40 by heom              #+#    #+#              #
-#    Updated: 2021/07/08 13:41:07 by taehokim         ###   ########.fr        #
+#    Updated: 2021/07/15 16:25:00 by heom             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRCS = \
 			wait_subprocess \
 			close \
 			export \
+			envp \
 			utils/ft_bzero \
 			utils/ft_strncmp \
 			utils/ft_strlen \
