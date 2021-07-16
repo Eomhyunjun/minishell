@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 19:33:35 by heom              #+#    #+#             */
-/*   Updated: 2021/07/15 19:44:51 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/16 15:07:01 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	process_env_pipe(void)
 					i++;
 				env_value = egg_strndup(buf, start, i - 1);
 			}
-			dprintf(2, "type : %c, name : %s, value : %s\n", env_type, env_name, env_value);
+			//dprintf(2, "type : %c, name : %s, value : %s\n", env_type, env_name, env_value);
 			if (env_type == ENV_NEW && add_new_envp(env_name, env_value))
 				safe_exit(1, "env new failed");
 			else if (env_type == ENV_EDIT && edit_envp(env_name, env_value))
@@ -61,5 +61,4 @@ void	process_env_pipe(void)
 		}
 	}
 	close(all()->env_pipe[0]);
-	close(all()->env_pipe[1]);
 }
