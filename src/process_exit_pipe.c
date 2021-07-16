@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   make_pipe.c                                        :+:      :+:    :+:   */
+/*   process_exit_pipe.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/02 14:00:58 by heom              #+#    #+#             */
-/*   Updated: 2021/07/16 13:51:16 by heom             ###   ########.fr       */
+/*   Created: 2021/07/16 13:44:13 by heom              #+#    #+#             */
+/*   Updated: 2021/07/16 14:56:56 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "egginshell.h"
 
 void
-	make_pipe(void)
+	process_exit_pipe(void)
 {
-	t_cmd	*current;
+	char buf[2];
+	// int	read_len;
 
-	current = all()->cmd_info;
-	while (current)
-	{
-		if (pipe(current->pipe_fd) || pipe(current->ii_fd))
-			safe_exit(1, "pipe error!\n");
-		current = current->next;
-	}
-	if (pipe(all()->env_pipe))
-		safe_exit(1, "env_pipe error!\n");
-	if (pipe(all()->exit_pipe))
-		safe_exit(1, "exit_pipe error!\n");
+	// 무한대기 풀려고 했는데 안먹음 ㅠㅠ
+	// if (!(read_len = read(all()->exit_pipe[0], buf, sizeof(buf))))
+	// 	return ;
+	read(all()->exit_pipe[0], buf, 2);
+	if (buf[0] == 'e')
+		safe_exit(0, NULL);
+	if (buf[0] == 'n')
+		safe_exit(1, "numeric argument required");
+	if (buf[0] == 'm')
+		safe_exit(1, "too many arguments");
 }

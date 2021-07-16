@@ -149,6 +149,18 @@ close_unused(void);
 void
 wait_subprocess(void);
 
+
+
+void
+print_export_error(char *data);
+
+void
+print_charbox(char *charbox_name, t_charbox *charbox);
+
+/*
+** ---------------- builtin_cmd
+*/
+
 int
 egg_export(t_cmd *cmd);
 
@@ -160,6 +172,9 @@ validate_export(char *data, char **name, char **value);
 
 void
 process_env_pipe(void);
+
+void
+process_exit_pipe(void);
 
 t_charbox
 *find_envp(char *name);
@@ -176,11 +191,8 @@ unset_envp(char *name);
 int
 send_env_code(char type, char *name, char *value);
 
-void
-print_export_error(char *data);
-
-void
-print_charbox(char *charbox_name, t_charbox *charbox);
+int
+egg_exit(t_cmd *cmd);
 
 /*
 ** ----------------   pipe   ----------------------
@@ -195,6 +207,8 @@ fork_loop(void);
 /*
 ** ----------------   utils   ----------------------
 */
+int
+ft_atoi(const char *str);
 
 void
 ft_bzero(void *s, size_t n);

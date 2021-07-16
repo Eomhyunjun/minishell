@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 14:19:09 by heom              #+#    #+#             */
-/*   Updated: 2021/07/15 19:43:47 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/16 13:48:40 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int		main(int argc, char **argv, char **envp)
 		close(all()->env_pipe[1]);
 		wait_subprocess();
 		process_env_pipe();
+		process_exit_pipe();
 		// print_charbox("envp", all()->egg_envp);
 		free(buf);
 	}

@@ -6,7 +6,7 @@
 #    By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/10 12:51:40 by heom              #+#    #+#              #
-#    Updated: 2021/07/15 19:43:27 by heom             ###   ########.fr        #
+#    Updated: 2021/07/16 14:14:50 by heom             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,8 +32,11 @@ SRCS = \
 			close \
 			envp \
 			process_env_pipe \
+			process_exit_pipe \
 			builtin_cmd/export \
 			builtin_cmd/unset \
+			builtin_cmd/exit \
+			utils/ft_atoi \
 			utils/ft_bzero \
 			utils/ft_strncmp \
 			utils/ft_strlen \

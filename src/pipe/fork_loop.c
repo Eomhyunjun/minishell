@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 14:06:52 by heom              #+#    #+#             */
-/*   Updated: 2021/07/15 20:00:14 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/16 14:57:26 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,15 @@ int
 {
 	int	type;
 
+	close(all()->env_pipe[0]);
+	close(all()->exit_pipe[0]);
 	type = check_builtin_cmd(current);
 	if (type == EGG_EXPORT)
 		return (egg_export(current));
 	if (type == EGG_UNSET)
 		return (egg_unset(current));
-	// else
-	close(all()->env_pipe[0]);
-	close(all()->env_pipe[1]);
+	if (type == EGG_EXIT)
+		return (egg_exit(current));
 	return (type);
 }
 
