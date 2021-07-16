@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 10:49:52 by taehokim          #+#    #+#             */
-/*   Updated: 2021/07/15 20:16:01 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/16 15:30:05 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void
 	char		*tmp;
 
 	current = all()->egg_envp;
-	print_charbox("envp", all()->egg_envp);
+	//print_charbox("envp", all()->egg_envp);
 	while (current)
 	{
 		validate_export(current->data, &name, &value);

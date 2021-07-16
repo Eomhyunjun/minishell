@@ -162,6 +162,9 @@ print_charbox(char *charbox_name, t_charbox *charbox);
 */
 
 int
+egg_env(void);
+
+int
 egg_export(t_cmd *cmd);
 
 int

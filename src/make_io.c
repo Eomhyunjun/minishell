@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_io.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/04 14:15:45 by heom              #+#    #+#             */
-/*   Updated: 2021/07/07 15:37:54 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/16 15:36:08 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void
 	current = all()->cmd_info;
 	while (current)
 	{
-		print_cmd(current);
+		//print_cmd(current);
 		cur_io = current->io;
 		while (cur_io)
 		{
