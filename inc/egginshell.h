@@ -149,8 +149,6 @@ close_unused(void);
 void
 wait_subprocess(void);
 
-
-
 void
 print_export_error(char *data);
 
@@ -215,6 +213,9 @@ make_pipe(void);
 
 void
 fork_loop(void);
+
+int
+try_execve(t_cmd *current);
 
 /*
 ** ----------------   utils   ----------------------
