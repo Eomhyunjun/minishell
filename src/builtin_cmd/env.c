@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:43 by heom              #+#    #+#             */
-/*   Updated: 2021/07/16 15:32:10 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/18 14:06:09 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int
 	current = all()->egg_envp;
 	while (current)
 	{
-		ft_putstr_plus_newline(1, current->data);
+		if (current->type == ENVTYPE_STR)
+			ft_putstr_plus_newline(1, current->data);
 		current = current->next;
 	}
 	return (0);
