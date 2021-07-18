@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 10:49:52 by taehokim          #+#    #+#             */
-/*   Updated: 2021/07/16 15:30:05 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/18 13:34:02 by taehokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ int
 	egg_export(t_cmd *cmd)
 {
 	t_charbox	*arg;
-	t_charbox	*env;
 	int			ret;
 	int			mem_ret;
 	char		*name;
@@ -101,15 +100,7 @@ int
 			if (validate_export(arg->data, &name, &value))
 				ret = 1;
 			else
-			{
-				env = find_envp(name);
-				if (!value)
-					mem_ret = send_env_code(ENV_NEW_NULL, name, NULL);
-				else if (env && value)
-					mem_ret = send_env_code(ENV_EDIT, name, value);
-				else if (!env)
-					mem_ret = send_env_code(ENV_NEW, name, value);
-			}
+				mem_ret = request_update_env(name, value);
 			if (name)
 				free(name);
 			if (value)

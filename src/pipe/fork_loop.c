@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 14:06:52 by heom              #+#    #+#             */
-/*   Updated: 2021/07/16 15:33:33 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/18 12:47:59 by taehokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ int
 		return (egg_unset(current));
 	if (type == EGG_EXIT)
 		return (egg_exit(current));
+	if (type == EGG_ECHO)
+		return (egg_echo(current));
 	return (type);
 }
 

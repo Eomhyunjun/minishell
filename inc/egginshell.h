@@ -162,6 +162,9 @@ print_charbox(char *charbox_name, t_charbox *charbox);
 */
 
 int
+request_update_env(char *name, char *value);
+
+int
 egg_env(void);
 
 int
@@ -169,6 +172,9 @@ egg_export(t_cmd *cmd);
 
 int
 egg_unset(t_cmd *cmd);
+
+int
+egg_echo(t_cmd *cmd);
 
 int
 validate_export(char *data, char **name, char **value);

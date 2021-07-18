@@ -26,9 +26,7 @@ int
 	validate_unset(char *data, char **name)
 {
 	int	i;
-	int	len;
 
-	len = ft_strlen(data);
 	if (!can_be_first_env_name(data[0]))
 	{
 		print_unset_error(data);
@@ -52,7 +50,6 @@ int
 	egg_unset(t_cmd *cmd)
 {
 	t_charbox	*arg;
-	t_charbox	*env;
 	int			ret;
 	int			mem_ret;
 	char		*name;
@@ -67,10 +64,7 @@ int
 			if (validate_unset(arg->data, &name))
 				ret = 1;
 			else
-			{
-				env = find_envp(name);
 				mem_ret = send_env_code(ENV_UNSET, name, NULL);
-			}
 			if (name)
 				free(name);
 			if (mem_ret == 1)
