@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 14:06:52 by heom              #+#    #+#             */
-/*   Updated: 2021/07/18 14:14:58 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/18 14:19:44 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int
 		return (egg_exit(current));
 	if (type == EGG_ECHO)
 		return (egg_echo(current));
+	if (type == EGG_PWD)
+		return (egg_pwd());
 	return (type);
 }
 

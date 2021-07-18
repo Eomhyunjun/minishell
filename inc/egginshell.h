@@ -203,6 +203,9 @@ send_env_code(char type, char *name, char *value);
 int
 egg_exit(t_cmd *cmd);
 
+int
+egg_pwd(void);
+
 /*
 ** ----------------   pipe   ----------------------
 */
