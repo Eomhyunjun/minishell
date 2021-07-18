@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 13:21:09 by heom              #+#    #+#             */
-/*   Updated: 2021/07/16 13:42:39 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/18 13:15:05 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_all
 	int					env_pipe[2];
 	int					exit_pipe[2];
 	struct termios		oldtio;
+	int					last_cmd_result;
 }				t_all;
 
 #endif

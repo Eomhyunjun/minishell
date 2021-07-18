@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 14:36:43 by taehokim          #+#    #+#             */
-/*   Updated: 2021/07/05 17:24:53 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/18 13:30:22 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int
 		free(search);
 		if (data[start] == '?')
 		{
-			// do question mark
+			*replaced = egg_strdup(ft_itoa(all()->last_cmd_result));
 			return (end + 1);
 		}
 		*replaced = create_dollar();

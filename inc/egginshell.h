@@ -213,6 +213,9 @@ fork_loop(void);
 int
 ft_atoi(const char *str);
 
+char
+*ft_itoa(int n);
+
 void
 ft_bzero(void *s, size_t n);
 

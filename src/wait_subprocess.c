@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 15:38:05 by heom              #+#    #+#             */
-/*   Updated: 2021/07/15 14:52:37 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/18 13:30:31 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,5 @@ void
 			safe_exit(1, "waitpid error");
 		current = current->next;
 	}
+	all()->last_cmd_result = WEXITSTATUS(res);
 }

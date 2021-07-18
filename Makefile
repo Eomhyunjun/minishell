@@ -6,7 +6,7 @@
 #    By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/10 12:51:40 by heom              #+#    #+#              #
-#    Updated: 2021/07/16 15:33:23 by heom             ###   ########.fr        #
+#    Updated: 2021/07/18 13:28:11 by heom             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS = \
 			builtin_cmd/unset \
 			builtin_cmd/exit \
 			utils/ft_atoi \
+			utils/ft_itoa \
 			utils/ft_bzero \
 			utils/ft_strncmp \
 			utils/ft_strlen \
