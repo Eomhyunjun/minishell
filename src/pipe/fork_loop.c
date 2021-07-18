@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 14:06:52 by heom              #+#    #+#             */
-/*   Updated: 2021/07/18 12:47:59 by taehokim         ###   ########.fr       */
+/*   Updated: 2021/07/18 14:14:58 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int
 	close(all()->exit_pipe[0]);
 	type = check_builtin_cmd(current);
 	if (type == EGG_ENV)
-		return (egg_env());
+		return (egg_env(current));
 	if (type == EGG_EXPORT)
 		return (egg_export(current));
 	if (type == EGG_UNSET)

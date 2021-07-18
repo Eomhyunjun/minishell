@@ -165,7 +165,7 @@ int
 request_update_env(char *name, char *value);
 
 int
-egg_env(void);
+egg_env(t_cmd *cur_cmd);
 
 int
 egg_export(t_cmd *cmd);
