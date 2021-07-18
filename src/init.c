@@ -20,14 +20,17 @@ int custom_rl_getc_fuction(FILE *stream)
 
 	while (1)
 	{
+#ifdef __APPLE__
 		result = read(rl_instream->_file, &c, sizeof(unsigned char));
+#else
+		result = read(rl_instream->_fileno, &c, sizeof(unsigned char));
+#endif
 		if (c == 4 && *rl_line_buffer == '\0')
 		{
 			rl_on_new_line();
 			write(1, "exit\n", 5);
 			safe_exit(0, NULL);
 		}
-
 		if (result == sizeof(unsigned char))
 			return (c);
 		if (result == 0)

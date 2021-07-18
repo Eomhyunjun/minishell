@@ -63,9 +63,13 @@ PARSING = \
 
 OBJS = $(FIL:.c=.o)
 INCS = -I./inc
-LIBS =  -L./lib -lreadline -ltermcap -lhistory
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Linux)
+	LIBS =  -L./lib/linux -lreadline -ltermcap -lhistory
+else
+	LIBS =  -L./lib -lreadline -ltermcap -lhistory
+endif
 
-# $(addsuffix .c, $(addprefix src/, $(MAIN)))
 FIL = \
 		$(addsuffix .c, $(addprefix src/, $(SRCS))) \
 		$(addsuffix .c, $(addprefix src/parsing/, $(PARSING)))
