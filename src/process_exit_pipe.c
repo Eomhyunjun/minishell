@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_exit_pipe.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 13:44:13 by heom              #+#    #+#             */
-/*   Updated: 2021/07/16 15:14:21 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/18 15:46:19 by taehokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ void
 	ft_bzero(buf, 2);
 	while (1)
 	{
-		read_len = read(all()->exit_pipe[0], buf, sizeof(buf));
+		read_len = read(all()->exit_pipe[0], buf, sizeof(buf)); // 이거 좀 이상함
 		if (read_len == 0)
 			break ;
 		if (read_len == -1)
 			safe_exit(1, "env pipe read error");
-		read(all()->exit_pipe[0], buf, 2);
+		read(all()->exit_pipe[0], buf, 2); // 왜 read 두번?
 		if (buf[0] == 'e')
 			safe_exit(0, NULL);
 		if (buf[0] == 'n')

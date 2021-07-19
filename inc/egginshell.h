@@ -33,6 +33,8 @@
 # define ENV_NEW_NULL 'b'
 # define ENV_UNSET 'u'
 
+# define OTHER_CD 'c'
+
 # define ENVTYPE_STR 0
 # define ENVTYPE_NULL 1
 
@@ -177,6 +179,12 @@ int
 egg_echo(t_cmd *cmd);
 
 int
+egg_cd(t_cmd *cmd);
+
+int
+egg_exit(t_cmd *cmd);
+
+int
 validate_export(char *data, char **name, char **value);
 
 void
@@ -184,6 +192,9 @@ process_env_pipe(void);
 
 void
 process_exit_pipe(void);
+
+void
+process_other_pipe(void);
 
 t_charbox
 *find_envp(char *name);
@@ -200,8 +211,9 @@ unset_envp(char *name);
 int
 send_env_code(char type, char *name, char *value);
 
-int
-egg_exit(t_cmd *cmd);
+char
+*create_from_env(char *name);
+
 
 /*
 ** ----------------   pipe   ----------------------

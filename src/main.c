@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 14:19:09 by heom              #+#    #+#             */
-/*   Updated: 2021/07/18 12:28:01 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/18 15:36:00 by taehokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ int		main(int argc, char **argv, char **envp)
 	(void)	argc;
 	(void)	argv;
 	char	*buf;
+	int		piped;
 
 	init(envp);
+	piped = 0;
 	while (1)
 	{
 		safe_free_cmd();
@@ -31,6 +33,7 @@ int		main(int argc, char **argv, char **envp)
 			add_history(buf);
 			if (!parse(buf) && !make_io())
 			{
+				piped = 1;
 				make_pipe();
 				fork_loop();
 				ii_write();
@@ -38,11 +41,15 @@ int		main(int argc, char **argv, char **envp)
 		}
 		close_unused();
 		wait_subprocess();
-		close(all()->env_pipe[1]);
-		close(all()->exit_pipe[1]);
-		process_env_pipe();
-		process_exit_pipe();
-		// print_charbox("envp", all()->egg_envp);
+		if (piped)
+		{
+			close(all()->env_pipe[1]);
+			close(all()->exit_pipe[1]);
+			close(all()->other_pipe[1]);
+			process_env_pipe();
+			process_exit_pipe();
+			process_other_pipe();
+		}
 		free(buf);
 	}
 	safe_exit(0, NULL);

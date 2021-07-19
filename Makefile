@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+         #
+#    By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/10 12:51:40 by heom              #+#    #+#              #
-#    Updated: 2021/07/18 13:40:53 by heom             ###   ########.fr        #
+#    Updated: 2021/07/18 18:28:36 by taehokim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,11 +33,13 @@ SRCS = \
 			envp \
 			process_env_pipe \
 			process_exit_pipe \
+			process_other_pipe \
 			builtin_cmd/env \
 			builtin_cmd/export \
 			builtin_cmd/unset \
 			builtin_cmd/exit \
 			builtin_cmd/echo \
+			builtin_cmd/cd \
 			builtin_cmd/builtin_request \
 			utils/ft_atoi \
 			utils/ft_itoa \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 16:22:10 by heom              #+#    #+#             */
-/*   Updated: 2021/07/15 19:50:57 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/18 14:20:55 by taehokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,26 @@ t_charbox
 		current = current->next;
 	}
 	return (NULL);
+}
+
+char
+	*create_from_env(char *name)
+{
+	t_charbox	*env;
+	int			start;
+	int			end;
+
+	env = find_envp(name);
+	if (!env || env->type == ENVTYPE_NULL)
+		return (NULL);
+	end = ft_strlen(env->data) - 1;
+	start = 0;
+	while (env->data[start] != '=')
+	{
+		start++;
+	}
+	start++;
+	return (egg_strndup(env->data, start, end));
 }
 
 int

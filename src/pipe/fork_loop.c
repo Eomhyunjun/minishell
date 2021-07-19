@@ -6,7 +6,7 @@
 /*   By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 14:06:52 by heom              #+#    #+#             */
-/*   Updated: 2021/07/18 12:47:59 by taehokim         ###   ########.fr       */
+/*   Updated: 2021/07/18 18:22:15 by taehokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int
 
 	close(all()->env_pipe[0]);
 	close(all()->exit_pipe[0]);
+	close(all()->other_pipe[0]);
 	type = check_builtin_cmd(current);
 	if (type == EGG_ENV)
 		return (egg_env());
@@ -68,6 +69,8 @@ int
 		return (egg_exit(current));
 	if (type == EGG_ECHO)
 		return (egg_echo(current));
+	if (type == EGG_CD)
+		return (egg_cd(current));
 	return (type);
 }
 
