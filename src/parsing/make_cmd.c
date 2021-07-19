@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 15:22:35 by heom              #+#    #+#             */
-/*   Updated: 2021/07/08 20:37:03 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/19 20:46:15 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ int
 			contents = egg_strndup(buf, cmd_start, i - 1);
 			if (is_empty(contents))
 			{
-				ft_putstr_plus_newline(2, "egginshell: syntax error near unexpected token '|'");
+				ft_putstr_plus_newline(2,
+					"egginshell: syntax error near unexpected token '|'");
 				return (1);
 			}
 			add_cmd(contents);
@@ -96,7 +97,8 @@ int
 	contents = egg_strndup(buf, cmd_start, i - 1);
 	if (is_empty(contents))
 	{
-		ft_putstr_plus_newline(2, "egginshell: you should write something after '|'");
+		ft_putstr_plus_newline(2,
+			"egginshell: you should write something after '|'");
 		return (1);
 	}
 	add_cmd(contents);

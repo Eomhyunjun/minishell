@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 14:19:21 by heom              #+#    #+#             */
-/*   Updated: 2021/07/18 14:22:43 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/19 16:42:49 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 int
 	egg_pwd(void)
 {
-	ft_putstr_plus_newline(1, all()->pwd);
+	char	*path;
+
+	path = getcwd(NULL, 0);
+	ft_putstr_plus_newline(1, path);
+	free(path);
 	return (0);
 }

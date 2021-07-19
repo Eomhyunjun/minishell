@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/04 14:25:06 by heom              #+#    #+#             */
-/*   Updated: 2021/07/08 19:15:13 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/19 20:39:03 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void
 	dprintf(2, "<%s>\n", charbox_name);
 	while (current)
 	{
-		dprintf(2, "    %03d data=|%s|, type=%d\n", i, current->data, current->type);
+		dprintf(2, "    %03d data=|%s|, type=%d\n", i,
+				current->data, current->type);
 		current = current->next;
 		i++;
 	}

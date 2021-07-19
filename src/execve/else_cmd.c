@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   else_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/04 13:34:31 by heom              #+#    #+#             */
-/*   Updated: 2021/07/19 20:38:49 by heom             ###   ########.fr       */
+/*   Created: 2021/07/19 16:42:10 by heom              #+#    #+#             */
+/*   Updated: 2021/07/19 20:36:57 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "egginshell.h"
 
 void
-	ft_putstr_plus_newline(int fd, const char *s)
+	exec_path_cmd(t_cmd *current, t_exec *t)
 {
-	int		i;
-	char	*msg;
-
-	i = ft_strlen(s);
-	msg = ft_strjoin3(s, "", "\n");
-	write(fd, msg, i + 1);
-	free(msg);
+	while (all()->path[t->i])
+	{
+		t->exec_path = ft_strjoin3(all()->path[t->i], "/", current->argv->data);
+		execve(t->exec_path, t->argv_matrix, t->envp_matrix);
+		free(t->exec_path);
+		t->i++;
+	}
+	t->msg = ft_strjoin3("egginshell: ", current->argv->data,
+			": command not found");
+	ft_putstr_plus_newline(2, t->msg);
+	free(t->msg);
+	t->ret = 127;
 }

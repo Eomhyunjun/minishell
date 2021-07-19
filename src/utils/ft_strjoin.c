@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 18:10:31 by heom              #+#    #+#             */
-/*   Updated: 2021/07/07 14:16:49 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/19 20:38:33 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ char
 	i = 0;
 	if ((s1 == 0) || (s2 == 0) || (s3 == 0) || (s4 == 0))
 		return (0);
-	ft_malloc(&bottle, (ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3) + ft_strlen(s4) + 1));
+	ft_malloc(&bottle, (ft_strlen(s1) + ft_strlen(s2)
+			+ ft_strlen(s3) + ft_strlen(s4) + 1));
 	while (*s1)
 		bottle[i++] = *s1++;
 	while (*s2)
@@ -33,7 +34,6 @@ char
 	bottle[i] = '\0';
 	return (bottle);
 }
-
 
 char
 	*ft_strjoin3(char const *s1, char const *mid, char const *s2)

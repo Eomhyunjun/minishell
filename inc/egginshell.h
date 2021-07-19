@@ -122,6 +122,9 @@ int
 make_io(void);
 
 int
+process_open(t_cmd *current, t_charbox *cur_io, t_charbox *cur_theredoc);
+
+int
 can_be_env_name(char c);
 
 int
@@ -158,11 +161,21 @@ void
 print_charbox(char *charbox_name, t_charbox *charbox);
 
 /*
-** ---------------- builtin_cmd
+** ---------------- signal --------------------------
 */
 
+void
+do_nothing(int signo);
+
+void
+sigint_handler(int signo);
+
 int
-request_update_env(char *name, char *value);
+custom_rl_getc_fuction(FILE *stream);
+
+/*
+** ---------------- builtin_cmd -------------------
+*/
 
 int
 egg_env(t_cmd *cur_cmd);
@@ -178,6 +191,9 @@ egg_echo(t_cmd *cmd);
 
 int
 egg_cd(t_cmd *cmd);
+
+int
+egg_pwd(void);
 
 int
 egg_exit(t_cmd *cmd);
@@ -197,14 +213,6 @@ process_other_pipe(void);
 t_charbox
 *find_envp(char *name);
 
-int
-add_new_envp(char *name, char *value);
-
-int
-edit_envp(char *name, char *value);
-
-int
-unset_envp(char *name);
 
 int
 send_env_code(char type, char *name, char *value);
@@ -213,11 +221,25 @@ char
 *create_from_env(char *name);
 
 
+/*
+** ---------------   envp -------------------
+*/
+
 int
-egg_pwd(void);
+add_new_envp(char *name, char *value);
+
+int
+edit_envp(char *name, char *value);
+
+void
+unset_envp(char *name);
+
+int
+update_envp(char *name, char *value);
+
 
 /*
-** ----------------   pipe   ----------------------
+** ----------------   execve   ----------------------
 */
 
 void
@@ -228,6 +250,25 @@ fork_loop(void);
 
 int
 try_execve(t_cmd *current);
+
+int
+check_builtin_cmd(t_cmd *current);
+
+int
+exec_builtin_cmd(t_cmd *current);
+
+int
+check_dir(t_cmd *current);
+
+void
+exec_dir_cmd(t_cmd *current, t_exec *t);
+
+void
+do_child(t_cmd *current);
+
+void
+exec_path_cmd(t_cmd *current, t_exec *t);
+
 
 /*
 ** ----------------   utils   ----------------------
@@ -267,12 +308,5 @@ char
 
 char
 *ft_strjoin4(char const *s1, char const *s2, char const *s3, char const *s4);
-
-/*
-** ----------------  delete  ----------------------
-*/
-
-void
-print_cmd(t_cmd *cmd);
 
 #endif

@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   make_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/04 13:34:31 by heom              #+#    #+#             */
-/*   Updated: 2021/07/19 20:38:49 by heom             ###   ########.fr       */
+/*   Created: 2021/07/02 14:00:58 by heom              #+#    #+#             */
+/*   Updated: 2021/07/19 19:33:53 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "egginshell.h"
 
 void
-	ft_putstr_plus_newline(int fd, const char *s)
+	make_pipe(void)
 {
-	int		i;
-	char	*msg;
+	t_cmd	*current;
 
-	i = ft_strlen(s);
-	msg = ft_strjoin3(s, "", "\n");
-	write(fd, msg, i + 1);
-	free(msg);
+	current = all()->cmd_info;
+	while (current)
+	{
+		if (pipe(current->pipe_fd) || pipe(current->ii_fd))
+			safe_exit(1, "pipe error!\n");
+		current = current->next;
+	}
 }

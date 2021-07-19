@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 13:22:51 by heom              #+#    #+#             */
-/*   Updated: 2021/07/16 15:08:44 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/19 19:54:16 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,29 +29,24 @@ int
 {
 	t_charbox	*arg;
 	int			res;
+	int			arg_len;
 
 	res = 0;
+	arg_len = charbox_len(cmd->argv) - 1;
 	arg = cmd->argv->next;
-	if (!arg || (!(arg->next)))
+	if (arg_len == 0)
+		safe_exit(0, "exit");
+	else if (is_num(arg->data))
 	{
-		write(1, "exit\n", 5);
-		if (!arg || is_num(arg->data))
+		if (arg_len == 1)
+			safe_exit(ft_atoi(arg->data), "exit");
+		else
 		{
-			write(all()->exit_pipe[1], "e", 2);
-			if (is_num(arg->data))
-				res = ft_atoi(arg->data);
-		}
-		else if (!is_num(arg->data))
-		{
-			write(all()->exit_pipe[1], "n", 2);
-			res = 255;
+			write(2, "too many arguments\n", 20);
+			return (1);
 		}
 	}
 	else
-	{
-		write(all()->exit_pipe[1], "m", 2);
-		res = 1;
-	}
-	close(all()->exit_pipe[1]);
-	return (res);
+		safe_exit(255, "numeric argument required");
+	return (0);
 }

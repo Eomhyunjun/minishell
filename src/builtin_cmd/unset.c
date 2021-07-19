@@ -6,18 +6,35 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:53:19 by heom              #+#    #+#             */
-/*   Updated: 2021/07/15 20:19:26 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/19 20:41:50 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "egginshell.h"
 
 void
+	unset_envp(char *name)
+{
+	t_charbox	*arg;
+
+	arg = find_envp(name);
+	if (!arg)
+		return ;
+	if (arg->prev)
+		arg->prev->next = arg->next;
+	if (arg->next)
+		arg->next->prev = arg->prev;
+	free(arg->data);
+	free(arg);
+}
+
+void
 	print_unset_error(char *data)
 {
 	char	*msg;
 
-	msg = ft_strjoin3("egginshell: unset: '", data, "': not a valid identifier");
+	msg = ft_strjoin3("egginshell: unset: '",
+			data, "': not a valid identifier");
 	ft_putstr_plus_newline(2, msg);
 	free(msg);
 }
@@ -51,11 +68,9 @@ int
 {
 	t_charbox	*arg;
 	int			ret;
-	int			mem_ret;
 	char		*name;
 
 	ret = 0;
-	mem_ret = 0;
 	if (charbox_len(cmd->argv) > 1)
 	{
 		arg = cmd->argv->next;
@@ -64,11 +79,9 @@ int
 			if (validate_unset(arg->data, &name))
 				ret = 1;
 			else
-				mem_ret = send_env_code(ENV_UNSET, name, NULL);
+				unset_envp(name);
 			if (name)
 				free(name);
-			if (mem_ret == 1)
-				safe_exit(2, "unset memory error");
 			arg = arg->next;
 		}
 	}

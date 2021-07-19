@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   safe_exit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 20:02:09 by heom              #+#    #+#             */
-/*   Updated: 2021/07/08 20:37:06 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/19 19:32:00 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void
 {
 	safe_free_cmd();
 	tcsetattr(0, TCSANOW, &all()->oldtio);
-	if (code != 0 && msg && msg[0])
+	if (msg && msg[0])
 		ft_putstr_plus_newline(2, msg);
 	exit(code);
 }

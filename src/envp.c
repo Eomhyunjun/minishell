@@ -3,43 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   envp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 16:22:10 by heom              #+#    #+#             */
-/*   Updated: 2021/07/18 14:20:55 by taehokim         ###   ########.fr       */
+/*   Updated: 2021/07/19 20:22:48 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "egginshell.h"
-
-int
-	send_env_code(char type, char *name, char *value)
-{
-	char	*ret;
-	int		i;
-	int		j;
-	int		len;
-
-	len = ft_strlen(name) + ft_strlen(value) + 4;
-	if (!ft_malloc(&ret, len))
-		return (1);
-	ret[0] = type;
-	ret[1] = '\0';
-	i = 0;
-	j = 2;
-	while (name[i])
-		ret[j++] = name[i++];
-	ret[j++] = '\0';
-	if (value)
-	{
-		i = 0;
-		while (value[i])
-			ret[j++] = value[i++];
-		ret[j] = '\0';
-	}
-	write(all()->env_pipe[1], ret, len);
-	return (0);
-}
 
 t_charbox
 	*find_envp(char *name)
@@ -80,23 +51,6 @@ char
 }
 
 int
-	unset_envp(char *name)
-{
-	t_charbox	*arg;
-
-	arg = find_envp(name);
-	if (!arg)
-		return (0);
-	if (arg->prev)
-		arg->prev->next = arg->next;
-	if (arg->next)
-		arg->next->prev = arg->prev;
-	free(arg->data);
-	free(arg);
-	return (0);
-}
-
-int
 	edit_envp(char *name, char *value)
 {
 	t_charbox	*arg;
@@ -130,4 +84,19 @@ int
 		return (1);
 	add_charbox(&all()->egg_envp, data, type);
 	return (0);
+}
+
+int
+	update_envp(char *name, char *value)
+{
+	int			mem_ret;
+	t_charbox	*env;
+
+	mem_ret = 0;
+	env = find_envp(name);
+	if (!env)
+		mem_ret = add_new_envp(name, value);
+	else if (value)
+		mem_ret = edit_envp(name, value);
+	return (mem_ret);
 }

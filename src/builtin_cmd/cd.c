@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 12:55:38 by taehokim          #+#    #+#             */
-/*   Updated: 2021/07/18 18:52:00 by taehokim         ###   ########.fr       */
+/*   Updated: 2021/07/19 20:10:38 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,45 +14,55 @@
 #include "egginshell.h"
 
 int
-	cd_send_path(t_cmd *cmd)
+	try_chdir(char *path)
 {
-	char		*path;
-	int			arg_len;
+	char	*tmp;
 
-	arg_len = charbox_len(cmd->argv);
-	if (arg_len == 1)
+	if (chdir(path))
 	{
-		path = create_from_env("HOME");
-		if (!path)
-		{
-			ft_putstr_plus_newline(2, "egginshell: cd: HOME not set");
-			return (1);
-		}
-		write(all()->other_pipe[1], path, ft_strlen(path) + 1);
-		free(path);
+		tmp = ft_strjoin4("egginshell: cd: ", path, ": ", strerror(errno));
+		ft_putstr_plus_newline(2, tmp);
+		free(tmp);
+		return (1);
 	}
-	else
-	{
-		path = cmd->argv->next->data;
-		write(all()->other_pipe[1], path, ft_strlen(path) + 1);
-	}
+	tmp = getcwd(NULL, 0);
+	if (edit_envp("PWD", tmp))
+		safe_exit(1, "pwd memory error while cd");
+	free(tmp);
 	return (0);
+}
+
+int
+	egg_cd_home(void)
+{
+	int		ret;
+	char	*path;
+
+	path = create_from_env("HOME");
+	if (!path)
+	{
+		ft_putstr_plus_newline(2, "egginshell: cd: HOME not set");
+		return (1);
+	}
+	ret = try_chdir(path);
+	free(path);
+	return (ret);
 }
 
 int
 	egg_cd(t_cmd *cmd)
 {
 	int			arg_len;
-	char		inst[2];
+	int			ret;
+	char		*path;
 
 	arg_len = charbox_len(cmd->argv);
-	if (arg_len >= 3)
+	if (arg_len == 1)
+		ret = egg_cd_home();
+	else
 	{
-		ft_putstr_plus_newline(2, "egginshell: cd: too many arguments");
-		return (1);
+		path = cmd->argv->next->data;
+		ret = try_chdir(path);
 	}
-	inst[0] = OTHER_CD;
-	inst[1] = '\0';
-	write(all()->other_pipe[1], inst, 2);
-	return (cd_send_path(cmd));
+	return (ret);
 }

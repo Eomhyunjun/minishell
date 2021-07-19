@@ -6,20 +6,22 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 13:25:56 by heom              #+#    #+#             */
-/*   Updated: 2021/07/18 13:27:26 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/19 20:41:21 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "egginshell.h"
 
-static int		signchk(int n)
+static int
+	signchk(int n)
 {
 	if (n < 0)
 		return (-1);
 	return (1);
 }
 
-static	int		len(int n)
+static int
+	len(int n)
 {
 	int		i;
 
@@ -37,7 +39,8 @@ static	int		len(int n)
 	return (i);
 }
 
-char			*ft_itoa(int n)
+char
+	*ft_itoa(int n)
 {
 	char	*str;
 	int		sign;
@@ -47,7 +50,7 @@ char			*ft_itoa(int n)
 		return (egg_strdup("-2147483648"));
 	i = len(n);
 	sign = signchk(n);
-	if (!(str = (char*)malloc(sizeof(char) * (i + 1))))
+	if (!ft_malloc(&str, sizeof(char) * (i + 1)))
 		return (NULL);
 	str[i--] = '\0';
 	if (n == 0)

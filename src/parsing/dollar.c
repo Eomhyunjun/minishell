@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 14:36:43 by taehokim          #+#    #+#             */
-/*   Updated: 2021/07/18 13:45:23 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/19 20:48:57 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,23 @@ char
 }
 
 int
-	make_dollar(char *data, int start, char **replaced)
+	replace_loop(t_charbox *current, char *search, char **replaced)
 {
 	char		*res;
+
+	res = replace_dollar(current->data, search);
+	if (res[0] != '\0')
+	{
+		*replaced = res;
+		free(search);
+		return (1);
+	}
+	free(res);
+}
+
+int
+	make_dollar(char *data, int start, char **replaced)
+{
 	char		*search;
 	int			end;
 	t_charbox	*current;
@@ -90,14 +104,8 @@ int
 	current = all()->egg_envp;
 	while (current)
 	{
-		res = replace_dollar(current->data, search);
-		if (res[0] != '\0')
-		{
-			*replaced = res;
-			free(search);
+		if (replace_loop(current, search, replaced))
 			return (end);
-		}
-		free(res);
 		current = current->next;
 	}
 	*replaced = create_blank();

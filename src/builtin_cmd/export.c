@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 10:49:52 by taehokim          #+#    #+#             */
-/*   Updated: 2021/07/18 14:14:56 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/19 20:45:23 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void
 {
 	char	*msg;
 
-	msg = ft_strjoin3("egginshell: export: '", data, "': not a valid identifier");
+	msg = ft_strjoin3("egginshell: export: '",
+			data, "': not a valid identifier");
 	ft_putstr_plus_newline(2, msg);
 	free(msg);
 }
@@ -62,7 +63,6 @@ void
 	char		*tmp;
 
 	current = all()->egg_envp;
-	//print_charbox("envp", all()->egg_envp);
 	while (current)
 	{
 		validate_export(current->data, &name, &value);
@@ -82,31 +82,38 @@ void
 }
 
 int
+	egg_export_loop(t_charbox *arg, int *ret)
+{
+	char		*name;
+	char		*value;
+	int			mem_ret;
+
+	mem_ret = 0;
+	if (validate_export(arg->data, &name, &value))
+		*ret = 1;
+	else
+		mem_ret = update_envp(name, value);
+	if (name)
+		free(name);
+	if (value)
+		free(value);
+	if (mem_ret)
+		safe_exit(2, "export memory error");
+}
+
+int
 	egg_export(t_cmd *cmd)
 {
 	t_charbox	*arg;
 	int			ret;
-	int			mem_ret;
-	char		*name;
-	char		*value;
 
 	ret = 0;
-	mem_ret = 0;
 	if (charbox_len(cmd->argv) > 1)
 	{
 		arg = cmd->argv->next;
 		while (arg)
 		{
-			if (validate_export(arg->data, &name, &value))
-				ret = 1;
-			else
-				mem_ret = request_update_env(name, value);
-			if (name)
-				free(name);
-			if (value)
-				free(value);
-			if (mem_ret == 1)
-				safe_exit(2, "export memory error");
+			egg_export_loop(arg, &ret);
 			arg = arg->next;
 		}
 	}

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/10 12:51:40 by heom              #+#    #+#              #
-#    Updated: 2021/07/19 15:32:30 by taehokim         ###   ########.fr        #
+#    Updated: 2021/07/19 20:36:18 by heom             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,39 +22,30 @@ SRCS = \
 			add \
 			safe_exit \
 			egg_strndup \
-			init \
+			signal \
 			charbox \
 			try_open \
 			get_path \
 			make_io \
+			process_open \
 			ii_write \
 			wait_subprocess \
 			close \
 			envp \
-			process_env_pipe \
-			process_exit_pipe \
-			process_other_pipe \
-			builtin_cmd/env \
-			builtin_cmd/export \
-			builtin_cmd/unset \
-			builtin_cmd/exit \
-			builtin_cmd/echo \
-			builtin_cmd/cd \
-			builtin_cmd/pwd \
-			builtin_cmd/builtin_request \
-			utils/ft_atoi \
-			utils/ft_itoa \
-			utils/ft_bzero \
-			utils/ft_strncmp \
-			utils/ft_strlen \
-			utils/ft_split \
-			utils/ft_strlcpy \
-			utils/ft_strjoin \
-			utils/ft_malloc \
-			utils/ft_putstr \
-			pipe/fork_loop \
-			pipe/make_pipe \
+			make_pipe \
 			delete/print \
+
+UTILS = \
+			ft_atoi \
+			ft_itoa \
+			ft_bzero \
+			ft_strncmp \
+			ft_strlen \
+			ft_split \
+			ft_strlcpy \
+			ft_strjoin \
+			ft_malloc \
+			ft_putstr \
 
 PARSING = \
 			parse \
@@ -65,6 +56,24 @@ PARSING = \
 			interpret_quote_env \
 			dollar \
 			create \
+
+EXECVE = \
+			fork_loop \
+			do_child \
+			try_execve \
+			dir_cmd \
+			builtin_cmd \
+			else_cmd \
+
+BUILTIN_CMD = \
+			env \
+			export \
+			unset \
+			exit \
+			echo \
+			cd \
+			pwd \
+
 
 
 OBJS = $(FIL:.c=.o)
@@ -78,7 +87,10 @@ endif
 
 FIL = \
 		$(addsuffix .c, $(addprefix src/, $(SRCS))) \
-		$(addsuffix .c, $(addprefix src/parsing/, $(PARSING)))
+		$(addsuffix .c, $(addprefix src/utils/, $(UTILS))) \
+		$(addsuffix .c, $(addprefix src/parsing/, $(PARSING))) \
+		$(addsuffix .c, $(addprefix src/execve/, $(EXECVE))) \
+		$(addsuffix .c, $(addprefix src/builtin_cmd/, $(BUILTIN_CMD))) \
 
 
 all : $(NAME)
