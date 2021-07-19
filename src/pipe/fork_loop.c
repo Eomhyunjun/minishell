@@ -6,7 +6,7 @@
 /*   By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 14:06:52 by heom              #+#    #+#             */
-/*   Updated: 2021/07/18 18:22:15 by taehokim         ###   ########.fr       */
+/*   Updated: 2021/07/19 15:32:06 by taehokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int
 	close(all()->other_pipe[0]);
 	type = check_builtin_cmd(current);
 	if (type == EGG_ENV)
-		return (egg_env());
+		return (egg_env(current));
 	if (type == EGG_EXPORT)
 		return (egg_export(current));
 	if (type == EGG_UNSET)
@@ -71,10 +71,12 @@ int
 		return (egg_echo(current));
 	if (type == EGG_CD)
 		return (egg_cd(current));
+	if (type == EGG_PWD)
+		return (egg_pwd());
 	return (type);
 }
 
-void
+int
 	try_execve(t_cmd *current)
 {
 	char		*exec_path;
@@ -82,8 +84,10 @@ void
 	char		**envp_matrix;
 	char		*msg;
 	int			i;
+	int			ret;
 
 	i = 0;
+	ret = 0;
 	argv_matrix = to_double_ptr(current->argv, NO_EXCLUDE);
 	envp_matrix = to_double_ptr(all()->egg_envp, ENVTYPE_NULL);
 	if (check_dir(current))
@@ -97,9 +101,7 @@ void
 	}
 	// export, env, cd, echo, exit, pwd, unset
 	else if (check_builtin_cmd(current))
-	{
-		exit(exec_builtin_cmd(current));
-	}
+		ret = exec_builtin_cmd(current);
 	else
 	{
 		while (all()->path[i])
@@ -114,13 +116,16 @@ void
 			": command not found");
 		ft_putstr_plus_newline(2, msg);
 		free(msg);
+		free_char_double_ptr(argv_matrix);
+		ret = 127;
 	}
-	free_char_double_ptr(argv_matrix);
+	return (ret);
 }
 
 void
 	do_child(t_cmd *current)
 {
+	int ret;
 	if (current->last_input == NULL && current->prev != NULL)
 		dup2(current->pipe_fd[0], STDIN_FILENO);
 	else if (current->last_input != NULL && current->last_input->type == RD_I)
@@ -132,8 +137,8 @@ void
 	else if (current->last_output != NULL)
 		dup2(current->output_fd, STDOUT_FILENO);
 	close_unused();
-	try_execve(current);
-	safe_exit(1, NULL);
+	ret = try_execve(current);
+	safe_exit(ret, NULL);
 }
 
 void

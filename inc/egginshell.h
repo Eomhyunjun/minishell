@@ -151,8 +151,6 @@ close_unused(void);
 void
 wait_subprocess(void);
 
-
-
 void
 print_export_error(char *data);
 
@@ -167,7 +165,7 @@ int
 request_update_env(char *name, char *value);
 
 int
-egg_env(void);
+egg_env(t_cmd *cur_cmd);
 
 int
 egg_export(t_cmd *cmd);
@@ -215,6 +213,9 @@ char
 *create_from_env(char *name);
 
 
+int
+egg_pwd(void);
+
 /*
 ** ----------------   pipe   ----------------------
 */
@@ -224,6 +225,9 @@ make_pipe(void);
 
 void
 fork_loop(void);
+
+int
+try_execve(t_cmd *current);
 
 /*
 ** ----------------   utils   ----------------------

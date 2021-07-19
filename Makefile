@@ -6,7 +6,7 @@
 #    By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/10 12:51:40 by heom              #+#    #+#              #
-#    Updated: 2021/07/18 18:28:36 by taehokim         ###   ########.fr        #
+#    Updated: 2021/07/19 15:32:30 by taehokim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRCS = \
 			builtin_cmd/exit \
 			builtin_cmd/echo \
 			builtin_cmd/cd \
+			builtin_cmd/pwd \
 			builtin_cmd/builtin_request \
 			utils/ft_atoi \
 			utils/ft_itoa \
