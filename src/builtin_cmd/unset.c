@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:53:19 by heom              #+#    #+#             */
-/*   Updated: 2021/07/19 20:41:50 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/23 15:24:03 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,13 @@ int
 	return (0);
 }
 
+void
+	unset_path(void)
+{
+	free_char_double_ptr(all()->path);
+	all()->path = ft_split("", ' ');
+}
+
 int
 	egg_unset(t_cmd *cmd)
 {
@@ -79,7 +86,11 @@ int
 			if (validate_unset(arg->data, &name))
 				ret = 1;
 			else
+			{
 				unset_envp(name);
+				if (ft_strcmp(name, "PATH") == 0)
+					unset_path();
+			}
 			if (name)
 				free(name);
 			arg = arg->next;

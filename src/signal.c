@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 15:21:31 by heom              #+#    #+#             */
-/*   Updated: 2021/07/23 14:44:58 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/23 15:09:53 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,7 @@ int
 		if (result == sizeof(unsigned char))
 			return (c);
 		if (result == 0)
-		{
-			printf("result is 0\n");
 			return (EOF);
-		}
 	}
 }
 
