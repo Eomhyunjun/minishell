@@ -6,7 +6,7 @@
 #    By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/10 12:51:40 by heom              #+#    #+#              #
-#    Updated: 2021/07/23 12:44:58 by heom             ###   ########.fr        #
+#    Updated: 2021/07/23 17:00:53 by heom             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -109,10 +109,7 @@ clean :
 	$(RM) $(OBJS) src/main.o
 
 fclean : clean
-	$(RM) $(NAME) test
-
-test : $(OBJS) test.c
-	gcc $(CFLAGS) $(INCS) $^ -o test $(LIBS)
+	$(RM) $(NAME)
 
 re: fclean all
 
