@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   try_open.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 19:04:52 by heom              #+#    #+#             */
-/*   Updated: 2021/07/07 14:24:07 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/23 16:38:26 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int
 	{
 		msg = ft_strjoin3("egginshell: ", path, ": ");
 		trash_can = msg;
-		msg = ft_strjoin3(msg, strerror(errno), "\n");
+		msg = ft_strjoin3(msg, strerror(errno), "");
 		free(trash_can);
 		ft_putstr_plus_newline(2, msg);
 		free(msg);

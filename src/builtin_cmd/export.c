@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 10:49:52 by taehokim          #+#    #+#             */
-/*   Updated: 2021/07/23 11:53:54 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/23 16:33:26 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void
 			free(tmp);
 			free(value);
 		}
-		ft_putstr_plus_newline(1, print);
+		ft_putstr_plus_newline(all()->builtin_stdout, print);
 		free(print);
 		free(name);
 		current = current->next;

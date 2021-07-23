@@ -106,6 +106,12 @@ wait_subprocess(void);
 void
 print_export_error(char *data);
 
+void
+change_builtin_stdio(t_cmd *current);
+
+void
+restore_builtin_stdio(void);
+
 /*
 ** ----------------- parsing -----------------------
 */

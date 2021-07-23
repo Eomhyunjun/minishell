@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 12:17:34 by taehokim          #+#    #+#             */
-/*   Updated: 2021/07/23 12:55:34 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/23 16:34:19 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int
 		output = ft_strjoin3(output, "", "\n");
 		free(tmp);
 	}
-	write(1, output, ft_strlen(output));
+	write(all()->builtin_stdout, output, ft_strlen(output));
 	free(output);
 	return (0);
 }
@@ -42,8 +42,6 @@ int
 	should_newline = 1;
 	string_started = 0;
 	print = NULL;
-	if (!cmd->argv->next)
-		add_charbox(&print, create_blank(), 0);
 	arg = cmd->argv->next;
 	while (arg)
 	{
@@ -57,5 +55,7 @@ int
 		}
 		arg = arg->next;
 	}
+	if (print == NULL)
+		add_charbox(&print, create_blank(), 0);
 	return (echo_print_free(print, should_newline));
 }

@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 14:19:09 by heom              #+#    #+#             */
-/*   Updated: 2021/07/23 14:57:36 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/23 16:37:36 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	init(char **envp)
 		i++;
 	}
 	all()->path = get_path();
+	all()->builtin_stdout = 1;
 	tcgetattr(0, &all()->oldtio);
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, do_nothing);
@@ -46,7 +47,11 @@ void
 			one_builtin = !all()->cmd_info->next
 				&& check_builtin_cmd(all()->cmd_info);
 			if (one_builtin)
+			{
+				change_builtin_stdio(all()->cmd_info);
 				all()->last_cmd_result = exec_builtin_cmd(all()->cmd_info);
+				restore_builtin_stdio();
+			}
 			else
 			{
 				make_pipe();

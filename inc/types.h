@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 13:21:09 by heom              #+#    #+#             */
-/*   Updated: 2021/07/23 14:45:08 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/23 16:04:56 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ typedef struct s_all
 	char				**path;
 	struct termios		oldtio;
 	int					last_cmd_result;
+	int					builtin_stdin;
+	int					builtin_stdout;
 }				t_all;
 
 typedef struct s_exec
