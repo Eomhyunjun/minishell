@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:43 by heom              #+#    #+#             */
-/*   Updated: 2021/07/23 16:12:33 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/23 16:49:31 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int
 	cur_env = all()->egg_envp;
 	while (cur_env)
 	{
-		// dprintf(2, "%d\n", )
 		if (cur_env->type == ENVTYPE_STR)
 			ft_putstr_plus_newline(all()->builtin_stdout, cur_env->data);
 		cur_env = cur_env->next;

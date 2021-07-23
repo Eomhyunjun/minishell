@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 14:19:09 by heom              #+#    #+#             */
-/*   Updated: 2021/07/23 16:37:36 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/23 16:52:28 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,12 @@ void	init(char **envp)
 	rl_catch_signals = 0;
 }
 
-void
+int
 	do_main_pro(char *buf)
 {
 	int	one_builtin;
 
 	one_builtin = 0;
-	signal(SIGINT, do_nothing);
 	if (ft_strlen(buf) > 0 && !is_empty(buf))
 	{
 		add_history(buf);
@@ -60,16 +59,14 @@ void
 			}
 		}
 	}
-	close_unused();
-	if (!one_builtin)
-		wait_subprocess();
-	signal(SIGINT, sigint_handler);
+	return (one_builtin);
 }
 
 int
 	main(int argc, char **argv, char **envp)
 {
 	char	*buf;
+	int		one_builtin;
 
 	(void)argc;
 	(void)argv;
@@ -80,7 +77,12 @@ int
 		buf = readline("egg in ₩^_^₩ ");
 		if (buf == 0)
 			break ;
-		do_main_pro(buf);
+		signal(SIGINT, do_nothing);
+		one_builtin = do_main_pro(buf);
+		close_unused();
+		if (!one_builtin)
+			wait_subprocess();
+		signal(SIGINT, sigint_handler);
 		free(buf);
 	}
 	safe_exit(0, NULL);
