@@ -6,7 +6,7 @@
 #    By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/10 12:51:40 by heom              #+#    #+#              #
-#    Updated: 2021/07/23 12:21:52 by heom             ###   ########.fr        #
+#    Updated: 2021/07/23 12:44:58 by heom             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ PARSING = \
 			parse \
 			make_cmd \
 			is_quote \
+			is_empty \
 			try_push \
 			get_none_pos \
 			interpret_quote_env \

@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 15:22:35 by heom              #+#    #+#             */
-/*   Updated: 2021/07/23 12:36:15 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/23 12:44:12 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,14 @@ int
 		ft_putstr_plus_newline(2, msg);
 		return (1);
 	}
+	return (0);
 }
 
 int
 	make_rawcmd_loop(char *buf, int i, int *cmd_start, char **contents)
 {
 	*contents = egg_strndup(buf, *cmd_start, i - 1);
-	if (if_empty_error(contents,
+	if (if_empty_error(*contents,
 			"egginshell: syntax error near unexpected token '|'"))
 		return (1);
 	add_cmd(*contents);

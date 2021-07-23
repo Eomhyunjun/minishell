@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 15:50:35 by heom              #+#    #+#             */
-/*   Updated: 2021/07/23 12:36:53 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/23 12:44:23 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int
 	int		end;
 	char	*dup_res;
 	char	*rawcmd;
-	char	*msg;
 
 	if (type == RD_I || type == RD_O)
 		(*i) += 1;
