@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 15:21:31 by heom              #+#    #+#             */
-/*   Updated: 2021/07/23 11:31:41 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/23 14:44:58 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,7 @@ int
 		if (result == sizeof(unsigned char))
 			return (c);
 		if (result == 0)
-		{
-			printf("result is 0\n");
 			return (EOF);
-		}
 	}
 }
 
@@ -71,14 +68,10 @@ void
 	sigint_handler(int signo)
 {
 	(void)signo;
-	if (!all()->cmd_info)
-	{
-		all()->last_cmd_result = 1;
-		write(1, "\n", 1);
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-	}
+	write(1, "\n", 1);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
 }
 
 void

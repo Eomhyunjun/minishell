@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taehokim <taehokim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 12:17:34 by taehokim          #+#    #+#             */
-/*   Updated: 2021/07/18 12:55:28 by taehokim         ###   ########.fr       */
+/*   Updated: 2021/07/23 12:55:34 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int
 	should_newline = 1;
 	string_started = 0;
 	print = NULL;
+	if (!cmd->argv->next)
+		add_charbox(&print, create_blank(), 0);
 	arg = cmd->argv->next;
 	while (arg)
 	{
