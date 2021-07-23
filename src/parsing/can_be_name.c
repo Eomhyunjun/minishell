@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wait_subprocess.c                                  :+:      :+:    :+:   */
+/*   can_be_name.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/05 15:38:05 by heom              #+#    #+#             */
-/*   Updated: 2021/07/23 11:18:17 by heom             ###   ########.fr       */
+/*   Created: 2021/07/23 12:12:49 by heom              #+#    #+#             */
+/*   Updated: 2021/07/23 12:14:04 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/wait.h>
-#include "egginshell.h"
-
-void
-	wait_subprocess(void)
+int
+	can_be_env_name(char c)
 {
-	t_cmd	*current;
-	int		res;
+	return ((c >= 'a' && c <= 'z')
+		|| (c >= 'A' && c <= 'Z')
+		|| (c >= '0' && c <= '9')
+		|| (c == '_'));
+}
 
-	current = all()->cmd_info;
-	while (current)
-	{
-		if (current->pid > 0 && waitpid(current->pid, &res, 0) == -1)
-			safe_exit(1, "waitpid error");
-		current = current->next;
-	}
-	all()->last_cmd_result = WEXITSTATUS(res);
+int
+	can_be_first_env_name(char c)
+{
+	return ((c >= 'a' && c <= 'z')
+		|| (c >= 'A' && c <= 'Z')
+		|| (c == '_'));
 }

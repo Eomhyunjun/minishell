@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/04 14:15:45 by heom              #+#    #+#             */
-/*   Updated: 2021/07/19 20:35:06 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/23 12:02:25 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void
 	char		*merge;
 	t_charbox	*tmp_doc;
 
+	buf = 0;
 	tmp_doc = NULL;
 	while (1)
 	{
@@ -37,6 +38,8 @@ void
 		}
 		add_charbox(&tmp_doc, buf, 0);
 	}
+	if (buf)
+		free(buf);
 }
 
 void

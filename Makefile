@@ -6,7 +6,7 @@
 #    By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/10 12:51:40 by heom              #+#    #+#              #
-#    Updated: 2021/07/19 20:36:18 by heom             ###   ########.fr        #
+#    Updated: 2021/07/23 12:21:52 by heom             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,6 @@ SRCS = \
 			close \
 			envp \
 			make_pipe \
-			delete/print \
 
 UTILS = \
 			ft_atoi \
@@ -56,6 +55,7 @@ PARSING = \
 			interpret_quote_env \
 			dollar \
 			create \
+			can_be_name \
 
 EXECVE = \
 			fork_loop \

@@ -6,28 +6,11 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 14:36:43 by taehokim          #+#    #+#             */
-/*   Updated: 2021/07/19 20:48:57 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/23 12:23:41 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "egginshell.h"
-
-int
-	can_be_env_name(char c)
-{
-	return ((c >= 'a' && c <= 'z')
-		|| (c >= 'A' && c <= 'Z')
-		|| (c >= '0' && c <= '9')
-		|| (c == '_'));
-}
-
-int
-	can_be_first_env_name(char c)
-{
-	return ((c >= 'a' && c <= 'z')
-		|| (c >= 'A' && c <= 'Z')
-		|| (c == '_'));
-}
 
 int
 	create_search(char *data, int start, char **search)
@@ -68,7 +51,19 @@ char
 }
 
 int
-	replace_loop(t_charbox *current, char *search, char **replaced)
+	process_no_search(char *data, int start, int end, char **replaced)
+{
+	if (data[start] == '?')
+	{
+		*replaced = ft_itoa(all()->last_cmd_result);
+		return (end + 1);
+	}
+	*replaced = create_dollar();
+	return (end);
+}
+
+int
+	process_replace(t_charbox *current, char *search, char **replaced)
 {
 	char		*res;
 
@@ -80,6 +75,7 @@ int
 		return (1);
 	}
 	free(res);
+	return (0);
 }
 
 int
@@ -93,18 +89,12 @@ int
 	if (!search[0])
 	{
 		free(search);
-		if (data[start] == '?')
-		{
-			*replaced = egg_strdup(ft_itoa(all()->last_cmd_result));
-			return (end + 1);
-		}
-		*replaced = create_dollar();
-		return (end);
+		return (process_no_search(data, start, end, replaced));
 	}
 	current = all()->egg_envp;
 	while (current)
 	{
-		if (replace_loop(current, search, replaced))
+		if (process_replace(current, search, replaced))
 			return (end);
 		current = current->next;
 	}

@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wait_subprocess.c                                  :+:      :+:    :+:   */
+/*   is_empty.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/05 15:38:05 by heom              #+#    #+#             */
-/*   Updated: 2021/07/23 11:18:17 by heom             ###   ########.fr       */
+/*   Created: 2021/07/23 12:36:29 by heom              #+#    #+#             */
+/*   Updated: 2021/07/23 12:36:30 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/wait.h>
 #include "egginshell.h"
 
-void
-	wait_subprocess(void)
+int
+	is_empty(char *content)
 {
-	t_cmd	*current;
-	int		res;
+	int	i;
 
-	current = all()->cmd_info;
-	while (current)
-	{
-		if (current->pid > 0 && waitpid(current->pid, &res, 0) == -1)
-			safe_exit(1, "waitpid error");
-		current = current->next;
-	}
-	all()->last_cmd_result = WEXITSTATUS(res);
+	i = 0;
+	while (content[i] == ' ')
+		i++;
+	if (content[i] == '\0')
+		return (1);
+	return (0);
 }

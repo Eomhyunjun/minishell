@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 10:49:52 by taehokim          #+#    #+#             */
-/*   Updated: 2021/07/19 20:45:23 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/23 11:53:54 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void
 	}
 }
 
-int
+void
 	egg_export_loop(t_charbox *arg, int *ret)
 {
 	char		*name;
@@ -89,10 +89,17 @@ int
 	int			mem_ret;
 
 	mem_ret = 0;
+	name = 0;
+	value = 0;
 	if (validate_export(arg->data, &name, &value))
 		*ret = 1;
 	else
 		mem_ret = update_envp(name, value);
+	if (name && ft_strcmp(name, "PATH") == 0 && value)
+	{
+		free_char_double_ptr(all()->path);
+		all()->path = get_path();
+	}
 	if (name)
 		free(name);
 	if (value)

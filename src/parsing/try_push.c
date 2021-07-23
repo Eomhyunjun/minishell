@@ -3,14 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   try_push.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 15:50:35 by heom              #+#    #+#             */
-/*   Updated: 2021/07/07 14:29:18 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/23 12:36:53 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "egginshell.h"
+
+int
+	error_empty_io(char *dup_res, char *rawcmd, int *i)
+{
+	char	*msg;
+
+	free(dup_res);
+	if (rawcmd[*i] == '\0')
+		msg = ft_strjoin3("syntax error near unexpected token ", \
+		"'newline'", "");
+	else
+	{
+		dup_res = egg_strndup(rawcmd, *i, *i);
+		msg = ft_strjoin3("syntax error near unexpected token '", \
+		dup_res, "'");
+		free(dup_res);
+	}
+	ft_putstr_plus_newline(2, msg);
+	free(msg);
+	return (1);
+}
 
 int
 	add_io(t_cmd *current, int type, int *i)
@@ -32,20 +53,7 @@ int
 	end = *i - 1;
 	dup_res = egg_strndup(rawcmd, start, end);
 	if (dup_res[0] == '\0')
-	{
-		free(dup_res);
-		if (rawcmd[*i] == '\0')
-			msg = ft_strjoin3("syntax error near unexpected token ", "'newline'", "");
-		else
-		{
-			dup_res = egg_strndup(rawcmd, *i, *i);
-			msg = ft_strjoin3("syntax error near unexpected token '", dup_res, "'");
-			free(dup_res);
-		}
-		ft_putstr_plus_newline(2, msg);
-		free(msg);
-		return (1);
-	}
+		return (error_empty_io(dup_res, rawcmd, i));
 	add_charbox(&current->io, dup_res, type);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 15:21:31 by heom              #+#    #+#             */
-/*   Updated: 2021/07/19 20:26:12 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/23 11:31:41 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void
 	(void)signo;
 	if (!all()->cmd_info)
 	{
+		all()->last_cmd_result = 1;
 		write(1, "\n", 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();

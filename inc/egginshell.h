@@ -43,9 +43,6 @@
 t_all
 *all(void);
 
-int
-parse(char *buf);
-
 void
 init(char **envp);
 
@@ -67,38 +64,11 @@ free_char_double_ptr(char **pp);
 void
 safe_free_cmd(void);
 
-int
-make_rawcmd(char *buf);
-
-int
-make_cmd(void);
-
-int
-is_empty(char *content);
-
-int
-make_cmd_item(t_cmd *current);
-
-int
-get_none_space_pos(char *rawcmd, int i);
-
-int
-get_none_name_pos(char *rawcmd, int i);
-
 char
 *egg_strdup(const char *s1);
 
 char
 *egg_strndup(const char *s1, int a, int b);
-
-int
-is_quote(char c, int *quote);
-
-int
-argv_try_push(t_cmd *current, int i);
-
-int
-io_try_push(t_cmd *current, int *i);
 
 void
 add_charbox(t_charbox **container, char *allocated, int type);
@@ -112,32 +82,11 @@ charbox_len(t_charbox *charbox);
 char
 **to_double_ptr(t_charbox *charbox, int type_exclude);
 
-void
-interpret_charbox(t_charbox *charbox);
-
-char
-*interpret_quote_env(char *data);
-
 int
 make_io(void);
 
 int
 process_open(t_cmd *current, t_charbox *cur_io, t_charbox *cur_theredoc);
-
-int
-can_be_env_name(char c);
-
-int
-can_be_first_env_name(char c);
-
-char
-*create_dollar(void);
-
-char
-*create_blank(void);
-
-int
-make_dollar(char *data, int start, char **replaced);
 
 int
 try_open(int *fd, char *path, int mode, int permission);
@@ -157,8 +106,60 @@ wait_subprocess(void);
 void
 print_export_error(char *data);
 
+/*
+** ----------------- parsing -----------------------
+*/
+
+int
+can_be_env_name(char c);
+
+int
+can_be_first_env_name(char c);
+
+char
+*create_dollar(void);
+
+char
+*create_blank(void);
+
+int
+make_dollar(char *data, int start, char **replaced);
+
+int
+get_none_space_pos(char *rawcmd, int i);
+
+int
+get_none_name_pos(char *rawcmd, int i);
+
 void
-print_charbox(char *charbox_name, t_charbox *charbox);
+interpret_charbox(t_charbox *charbox);
+
+char
+*interpret_quote_env(char *data);
+
+int
+is_quote(char c, int *quote);
+
+int
+is_empty(char *content);
+
+int
+make_cmd_item(t_cmd *current);
+
+int
+make_rawcmd(char *buf);
+
+int
+make_cmd(void);
+
+int
+parse(char *buf);
+
+int
+argv_try_push(t_cmd *current, int i);
+
+int
+io_try_push(t_cmd *current, int *i);
 
 /*
 ** ---------------- signal --------------------------
@@ -213,13 +214,11 @@ process_other_pipe(void);
 t_charbox
 *find_envp(char *name);
 
-
 int
 send_env_code(char type, char *name, char *value);
 
 char
 *create_from_env(char *name);
-
 
 /*
 ** ---------------   envp -------------------
@@ -236,7 +235,6 @@ unset_envp(char *name);
 
 int
 update_envp(char *name, char *value);
-
 
 /*
 ** ----------------   execve   ----------------------
@@ -268,7 +266,6 @@ do_child(t_cmd *current);
 
 void
 exec_path_cmd(t_cmd *current, t_exec *t);
-
 
 /*
 ** ----------------   utils   ----------------------

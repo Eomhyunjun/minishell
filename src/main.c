@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 14:19:09 by heom              #+#    #+#             */
-/*   Updated: 2021/07/19 20:22:37 by heom             ###   ########.fr       */
+/*   Updated: 2021/07/23 12:22:32 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,29 @@ void	init(char **envp)
 void
 	do_main_pro(char *buf)
 {
-	add_history(buf);
-	if (!parse(buf) && !make_io())
+	int	one_builtin;
+
+	one_builtin = 0;
+	if (ft_strlen(buf) > 0 && !is_empty(buf))
 	{
-		if (!all()->cmd_info->next && check_builtin_cmd(all()->cmd_info))
-			exec_builtin_cmd(all()->cmd_info);
-		else
+		add_history(buf);
+		if (!parse(buf) && !make_io())
 		{
-			make_pipe();
-			fork_loop();
-			ii_write();
+			one_builtin = !all()->cmd_info->next
+				&& check_builtin_cmd(all()->cmd_info);
+			if (one_builtin)
+				all()->last_cmd_result = exec_builtin_cmd(all()->cmd_info);
+			else
+			{
+				make_pipe();
+				fork_loop();
+				ii_write();
+			}
 		}
 	}
+	close_unused();
+	if (!one_builtin)
+		wait_subprocess();
 }
 
 int
@@ -62,10 +73,7 @@ int
 		buf = readline("egg in ₩^_^₩ ");
 		if (buf == 0)
 			break ;
-		if (ft_strlen(buf) > 0 && !is_empty(buf))
-			do_main_pro(buf);
-		close_unused();
-		wait_subprocess();
+		do_main_pro(buf);
 		free(buf);
 	}
 	safe_exit(0, NULL);
